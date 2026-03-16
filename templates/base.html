@@ -113,7 +113,6 @@
     {% if session.username %}
       <!-- Authenticated user navigation -->
       <div class="nav-section">
-        <h4 class="nav-section-title">Welcome {{ session.username }}</h4>
         <div class="nav-items-row">
           <a href="/" class="nav-item {% if request.endpoint == 'home' %}active{% endif %}">
             <i class="fa-solid fa-home"></i>
@@ -135,7 +134,6 @@
       </div>
       
       <div class="nav-section">
-        <h4 class="nav-section-title">Account</h4>
         <div class="nav-user-profile">
           <div class="user-avatar">
             <i class="fa-solid fa-user"></i>
@@ -152,7 +150,6 @@
     {% else %}
       <!-- Non-authenticated user navigation -->
       <div class="nav-section">
-        <h4 class="nav-section-title">Get Started</h4>
         <div class="nav-items-row">
           <a href="/login" class="nav-item {% if request.endpoint == 'login' %}active{% endif %}">
             <i class="fa-solid fa-sign-in-alt"></i>
@@ -166,7 +163,6 @@
       </div>
       
       <div class="nav-section">
-        <h4 class="nav-section-title">Learn More</h4>
         <div class="nav-items-row">
           <a href="/" class="nav-item {% if request.endpoint == 'home' %}active{% endif %}">
             <i class="fa-solid fa-home"></i>
