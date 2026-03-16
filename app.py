@@ -27,14 +27,19 @@ def login():
         username = request.form.get("username")
         password = request.form.get("password")
         
+        print(f"Login attempt - Username: {username}")
+        
         try:
             user = db.authenticate_user(username, password)
+            print(f"Authentication result: {user}")
             
             if user:
                 session['user_id'] = user['user_id']
                 session['username'] = user['username']
                 session['email'] = user['email']
                 session.permanent = True
+                
+                print(f"Session set: {dict(session)}")
                 
                 # Update last active
                 db.update_last_active(user['user_id'])
@@ -44,6 +49,8 @@ def login():
                 return render_template("login.html", error="Invalid username or password")
         except Exception as e:
             print(f"Login error: {e}")
+            import traceback
+            traceback.print_exc()
             return render_template("login.html", error="An error occurred. Please try again.")
     
     return render_template("login.html")
@@ -55,6 +62,8 @@ def signup():
         email = request.form.get("email")
         password = request.form.get("password")
         confirm_password = request.form.get("confirm_password")
+        
+        print(f"Signup attempt - Username: {username}, Email: {email}")
         
         try:
             # Basic validation
@@ -69,15 +78,19 @@ def signup():
             
             # Create user
             success = db.create_user(username, email, password)
+            print(f"User creation result: {success}")
             
             if success:
                 # Auto-login after successful signup
                 user = db.authenticate_user(username, password)
+                print(f"Auto-authentication result: {user}")
                 if user:
                     session['user_id'] = user['user_id']
                     session['username'] = user['username']
                     session['email'] = user['email']
                     session.permanent = True
+                    
+                    print(f"Session set after signup: {dict(session)}")
                     
                     # Update last active
                     db.update_last_active(user['user_id'])
@@ -87,6 +100,8 @@ def signup():
                 return render_template("signup.html", error="Username or email already exists")
         except Exception as e:
             print(f"Signup error: {e}")
+            import traceback
+            traceback.print_exc()
             return render_template("signup.html", error="An error occurred. Please try again.")
     
     return render_template("signup.html")

@@ -108,19 +108,27 @@ body {
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.nav-items-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0 12px;
+}
+
 .nav-item {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 16px 24px;
+  gap: 8px;
+  padding: 10px 16px;
   color: rgba(255, 255, 255, 0.9);
   text-decoration: none;
   transition: all 0.3s ease;
-  border-left: 4px solid transparent;
-  margin: 4px 12px;
-  border-radius: 0 12px 12px 0;
+  border-radius: 12px;
   position: relative;
   overflow: hidden;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
 }
 
 .nav-item::before {
@@ -139,23 +147,30 @@ body {
 }
 
 .nav-item:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.2);
   color: white;
-  border-left-color: #ff6b6b;
-  transform: translateX(4px);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .nav-item.active {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 107, 107, 0.3);
   color: white;
-  border-left-color: #ff6b6b;
-  box-shadow: 0 4px 20px rgba(255, 107, 107, 0.3);
+  border-color: rgba(255, 107, 107, 0.5);
+  box-shadow: 0 4px 16px rgba(255, 107, 107, 0.4);
 }
 
 .nav-item i {
-  width: 24px;
-  text-align: center;
-  font-size: 18px;
+  font-size: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.nav-item span {
+  font-size: 14px;
+  font-weight: 500;
+  position: relative;
+  z-index: 1;
 }
 
 .nav-user-profile {

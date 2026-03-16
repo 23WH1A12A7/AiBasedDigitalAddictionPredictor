@@ -114,22 +114,24 @@
       <!-- Authenticated user navigation -->
       <div class="nav-section">
         <h4 class="nav-section-title">Welcome {{ session.username }}</h4>
-        <a href="/" class="nav-item {% if request.endpoint == 'home' %}active{% endif %}">
-          <i class="fa-solid fa-home"></i>
-          <span>Home</span>
-        </a>
-        <a href="/mood-analysis" class="nav-item {% if request.endpoint == 'mood_analysis' %}active{% endif %}">
-          <i class="fa-solid fa-brain"></i>
-          <span>Mood Analysis</span>
-        </a>
-        <a href="/dashboard" class="nav-item {% if request.endpoint == 'dashboard' %}active{% endif %}">
-          <i class="fa-solid fa-chart-line"></i>
-          <span>Dashboard</span>
-        </a>
-        <a href="/wellness" class="nav-item {% if request.endpoint == 'wellness' %}active{% endif %}">
-          <i class="fa-solid fa-heart"></i>
-          <span>Wellness</span>
-        </a>
+        <div class="nav-items-row">
+          <a href="/" class="nav-item {% if request.endpoint == 'home' %}active{% endif %}">
+            <i class="fa-solid fa-home"></i>
+            <span>Home</span>
+          </a>
+          <a href="/mood-analysis" class="nav-item {% if request.endpoint == 'mood_analysis' %}active{% endif %}">
+            <i class="fa-solid fa-brain"></i>
+            <span>Mood</span>
+          </a>
+          <a href="/dashboard" class="nav-item {% if request.endpoint == 'dashboard' %}active{% endif %}">
+            <i class="fa-solid fa-chart-line"></i>
+            <span>Dashboard</span>
+          </a>
+          <a href="/wellness" class="nav-item {% if request.endpoint == 'wellness' %}active{% endif %}">
+            <i class="fa-solid fa-heart"></i>
+            <span>Wellness</span>
+          </a>
+        </div>
       </div>
       
       <div class="nav-section">
@@ -151,22 +153,26 @@
       <!-- Non-authenticated user navigation -->
       <div class="nav-section">
         <h4 class="nav-section-title">Get Started</h4>
-        <a href="/login" class="nav-item {% if request.endpoint == 'login' %}active{% endif %}">
-          <i class="fa-solid fa-sign-in-alt"></i>
-          <span>Login</span>
-        </a>
-        <a href="/signup" class="nav-item {% if request.endpoint == 'signup' %}active{% endif %}">
-          <i class="fa-solid fa-user-plus"></i>
-          <span>Sign Up</span>
-        </a>
+        <div class="nav-items-row">
+          <a href="/login" class="nav-item {% if request.endpoint == 'login' %}active{% endif %}">
+            <i class="fa-solid fa-sign-in-alt"></i>
+            <span>Login</span>
+          </a>
+          <a href="/signup" class="nav-item {% if request.endpoint == 'signup' %}active{% endif %}">
+            <i class="fa-solid fa-user-plus"></i>
+            <span>Sign Up</span>
+          </a>
+        </div>
       </div>
       
       <div class="nav-section">
         <h4 class="nav-section-title">Learn More</h4>
-        <a href="/" class="nav-item {% if request.endpoint == 'home' %}active{% endif %}">
-          <i class="fa-solid fa-home"></i>
-          <span>Home</span>
-        </a>
+        <div class="nav-items-row">
+          <a href="/" class="nav-item {% if request.endpoint == 'home' %}active{% endif %}">
+            <i class="fa-solid fa-home"></i>
+            <span>Home</span>
+          </a>
+        </div>
       </div>
     {% endif %}
   </div>
