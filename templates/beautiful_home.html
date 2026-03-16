@@ -3,638 +3,575 @@
 {% block title %}Digital Wellness Platform{% endblock %}
 
 {% block content %}
-<div class="beautiful-container">
-  <!-- Animated Background -->
-  <div class="animated-bg">
-    <div class="bg-gradient"></div>
-    <div class="floating-shapes">
-      <div class="shape shape-1"></div>
-      <div class="shape shape-2"></div>
-      <div class="shape shape-3"></div>
-      <div class="shape shape-4"></div>
-      <div class="shape shape-5"></div>
+<div class="hero-container">
+  <!-- Floating Elements -->
+  <div class="floating-elements">
+    <div class="float-element float-1">
+      <i class="fa-solid fa-brain"></i>
+    </div>
+    <div class="float-element float-2">
+      <i class="fa-solid fa-heart"></i>
+    </div>
+    <div class="float-element float-3">
+      <i class="fa-solid fa-chart-line"></i>
+    </div>
+    <div class="float-element float-4">
+      <i class="fa-solid fa-mobile-alt"></i>
     </div>
   </div>
 
-  <!-- Main Content -->
-  <div class="main-wrapper">
-    <!-- Header Section -->
-    <header class="main-header">
-      <div class="header-content">
-        <div class="logo-section">
-          <div class="logo">
-            <div class="logo-icon">
-              <i class="fa-solid fa-heart-pulse"></i>
-            </div>
-            <span class="logo-text">Digital Wellness</span>
-          </div>
-          <div class="tagline">Transform Your Digital Life</div>
-        </div>
-        
-        <div class="header-stats">
-          <div class="stat-item">
-            <div class="stat-icon">
-              <i class="fa-solid fa-users"></i>
-            </div>
-            <div class="stat-info">
-              <div class="stat-number">100K+</div>
-              <div class="stat-label">Happy Users</div>
-            </div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-icon">
-              <i class="fa-solid fa-star"></i>
-            </div>
-            <div class="stat-info">
-              <div class="stat-number">4.9</div>
-              <div class="stat-label">App Rating</div>
-            </div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-icon">
-              <i class="fa-solid fa-trophy"></i>
-            </div>
-            <div class="stat-info">
-              <div class="stat-number">95%</div>
-              <div class="stat-label">Success Rate</div>
-            </div>
-          </div>
-        </div>
+  <!-- Main Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      {% if session.username %}
+      <div class="welcome-card">
+        <div class="welcome-icon">👋</div>
+        <h2 class="welcome-title">Welcome back, {{ session.username }}!</h2>
+        <p class="welcome-subtitle">Ready to continue your digital wellness journey?</p>
       </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero">
-      <div class="hero-content">
-        <div class="hero-left">
-          {% if session.username %}
-          <div class="welcome-message">
-            <h2 class="welcome-title">Welcome back, {{ session.username }}! 👋</h2>
-            <p class="welcome-subtitle">Ready to continue your digital wellness journey?</p>
-          </div>
-          {% else %}
-          <div class="welcome-message">
-            <h2 class="welcome-title">Welcome to Digital Wellness! 🌟</h2>
-            <p class="welcome-subtitle">Discover your relationship with technology</p>
-          </div>
-          {% endif %}
-          
-          <div class="main-hero-content">
-            <h1 class="hero-title">
-              <span class="title-gradient">Reclaim Your Digital Freedom</span>
-            </h1>
-            <p class="hero-description">
-              Discover your relationship with technology and build healthier digital habits through our AI-powered wellness platform
-            </p>
-            <div class="hero-buttons">
-              <button class="hero-btn primary" onclick="startAssessment()">
-                <div class="btn-content">
-                  <i class="fa-solid fa-play"></i>
-                  <span>Start Assessment</span>
-                </div>
-              </button>
-              <button class="hero-btn secondary" onclick="goToWellness()">
-                <div class="btn-content">
-                  <i class="fa-solid fa-heart"></i>
-                  <span>Wellness Journey</span>
-                </div>
-              </button>
-            </div>
-          </div>
-        </div>
-        
-        <div class="hero-right">
-          <div class="hero-visual">
-            <div class="phone-mockup">
-              <div class="phone-screen">
-                <div class="screen-content">
-                  <div class="app-icon">
-                    <i class="fa-solid fa-heart"></i>
-                  </div>
-                  <div class="app-title">Wellness</div>
-                </div>
-              </div>
-            </div>
-            <div class="floating-icons">
-              <div class="float-icon icon-1">
-                <i class="fa-solid fa-brain"></i>
-              </div>
-              <div class="float-icon icon-2">
-                <i class="fa-solid fa-shield-alt"></i>
-              </div>
-              <div class="float-icon icon-3">
-                <i class="fa-solid fa-chart-line"></i>
-              </div>
-            </div>
-          </div>
-        </div>
+      {% else %}
+      <div class="welcome-card">
+        <div class="welcome-icon">🌟</div>
+        <h2 class="welcome-title">Welcome to Digital Wellness!</h2>
+        <p class="welcome-subtitle">Discover your relationship with technology</p>
       </div>
-    </section>
-
-    <!-- Features Grid -->
-    <section class="features">
-      <div class="section-header">
-        <h2>Everything You Need for Digital Wellness</h2>
-        <p>Comprehensive tools to transform your relationship with technology</p>
-      </div>
+      {% endif %}
       
-      <div class="features-grid">
-        <div class="feature-card" onclick="goToFeature('mood')">
-          <div class="feature-icon">
-            <div class="icon-circle">
-              <i class="fa-solid fa-brain"></i>
-            </div>
+      <div class="main-hero">
+        <div class="hero-badge">
+          <i class="fa-solid fa-sparkles"></i>
+          <span>AI-Powered Analysis</span>
+        </div>
+        
+        <h1 class="hero-title">
+          <span class="title-gradient">Reclaim Your</span>
+          <br>
+          <span class="title-highlight">Digital Freedom</span>
+        </h1>
+        
+        <p class="hero-description">
+          Transform your relationship with technology through our intelligent wellness platform. 
+          Get personalized insights, track your progress, and build healthier digital habits.
+        </p>
+        
+        <div class="hero-stats">
+          <div class="stat-item">
+            <div class="stat-number">50K+</div>
+            <div class="stat-label">Users</div>
           </div>
-          <h3>AI Mood Analysis</h3>
-          <p>Understand your emotional patterns and digital behavior through intelligent assessment</p>
-          <div class="feature-points">
-            <div class="point">
-              <i class="fa-solid fa-check"></i>
-              <span>Emotional Insights</span>
-            </div>
-            <div class="point">
-              <i class="fa-solid fa-check"></i>
-              <span>Personalized Tips</span>
-            </div>
+          <div class="stat-item">
+            <div class="stat-number">95%</div>
+            <div class="stat-label">Accuracy</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">24/7</div>
+            <div class="stat-label">Support</div>
           </div>
         </div>
         
-        <div class="feature-card" onclick="goToFeature('wellness')">
-          <div class="feature-icon">
-            <div class="icon-circle">
-              <i class="fa-solid fa-heart"></i>
-            </div>
-          </div>
-          <h3>Daily Wellness</h3>
-          <p>Build healthy habits with guided activities and progress tracking</p>
-          <div class="feature-points">
-            <div class="point">
-              <i class="fa-solid fa-check"></i>
-              <span>Daily Tasks</span>
-            </div>
-            <div class="point">
-              <i class="fa-solid fa-check"></i>
-              <span>Streak Tracking</span>
-            </div>
-          </div>
-        </div>
-        
-        <div class="feature-card" onclick="goToFeature('dashboard')">
-          <div class="feature-icon">
-            <div class="icon-circle">
-              <i class="fa-solid fa-chart-line"></i>
-            </div>
-          </div>
-          <h3>Progress Dashboard</h3>
-          <p>Visual analytics and insights to track your digital wellbeing journey</p>
-          <div class="feature-points">
-            <div class="point">
-              <i class="fa-solid fa-check"></i>
-              <span>Interactive Charts</span>
-            </div>
-            <div class="point">
-              <i class="fa-solid fa-check"></i>
-              <span>Trend Analysis</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    
-    <!-- CTA Section -->
-    <section class="cta">
-      <div class="cta-content">
-        <div class="cta-left">
-          <h2>Ready to Transform Your Digital Life?</h2>
-          <p>Join thousands who have already improved their relationship with technology</p>
-          <div class="cta-benefits">
-            <div class="benefit">
-              <i class="fa-solid fa-check-circle"></i>
-              <span>Free forever</span>
-            </div>
-            <div class="benefit">
-              <i class="fa-solid fa-check-circle"></i>
-              <span>No credit card required</span>
-            </div>
-            <div class="benefit">
-              <i class="fa-solid fa-check-circle"></i>
-              <span>Privacy focused</span>
-            </div>
-          </div>
-        </div>
-        
-        <div class="cta-right">
-          <div class="cta-visual">
-            <div class="success-metrics">
-              <div class="metric">
-                <div class="metric-number">50K+</div>
-                <div class="metric-label">Active Users</div>
-              </div>
-              <div class="metric">
-                <div class="metric-number">1M+</div>
-                <div class="metric-label">Lives Changed</div>
-              </div>
-            </div>
-          </div>
-          <button class="cta-btn" onclick="startJourney()">
+        <div class="hero-buttons">
+          <button class="hero-btn primary" onclick="startAssessment()">
             <div class="btn-content">
-              <i class="fa-solid fa-rocket"></i>
-              <span>Start Your Journey</span>
+              <i class="fa-solid fa-play"></i>
+              <span>Start Free Assessment</span>
+            </div>
+            <div class="btn-glow"></div>
+          </button>
+          <button class="hero-btn secondary" onclick="goToWellness()">
+            <div class="btn-content">
+              <i class="fa-solid fa-heart"></i>
+              <span>Wellness Journey</span>
             </div>
           </button>
         </div>
       </div>
-    </section>
-  </div>
+    </div>
+    
+    <!-- Hero Visual -->
+    <div class="hero-visual">
+      <div class="phone-mockup">
+        <div class="phone-screen">
+          <div class="screen-content">
+            <div class="app-header">
+              <div class="app-icon">
+                <i class="fa-solid fa-brain"></i>
+              </div>
+              <div class="app-title">Digital Wellness</div>
+            </div>
+            <div class="app-stats">
+              <div class="progress-ring">
+                <div class="progress-fill"></div>
+                <span class="progress-text">78%</span>
+              </div>
+              <div class="stat-info">
+                <div class="stat-label">Daily Goal</div>
+                <div class="stat-value">Great Progress!</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features">
+    <div class="section-header">
+      <h2 class="section-title">Powerful Features</h2>
+      <p class="section-subtitle">Everything you need for digital wellness</p>
+    </div>
+    
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fa-solid fa-brain"></i>
+        </div>
+        <h3>AI Analysis</h3>
+        <p>Advanced machine learning algorithms analyze your digital habits</p>
+        <div class="feature-hover"></div>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fa-solid fa-chart-line"></i>
+        </div>
+        <h3>Progress Tracking</h3>
+        <p>Monitor your wellness journey with detailed analytics</p>
+        <div class="feature-hover"></div>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fa-solid fa-heart"></i>
+        </div>
+        <h3>Wellness Programs</h3>
+        <p>Personalized activities to improve your digital health</p>
+        <div class="feature-hover"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials">
+    <div class="section-header">
+      <h2 class="section-title">Success Stories</h2>
+      <p class="section-subtitle">Join thousands who transformed their digital habits</p>
+    </div>
+    
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-content">
+          <div class="stars">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+          </div>
+          <p>"This app completely changed my relationship with technology. I feel more present and focused."</p>
+        </div>
+        <div class="testimonial-author">
+          <div class="author-avatar">S</div>
+          <div class="author-info">
+            <div class="author-name">Sarah K.</div>
+            <div class="author-role">Student</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="testimonial-card">
+        <div class="testimonial-content">
+          <div class="stars">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+          </div>
+          <p>"The insights are incredibly accurate and the wellness activities are genuinely helpful."</p>
+        </div>
+        <div class="testimonial-author">
+          <div class="author-avatar">M</div>
+          <div class="author-info">
+            <div class="author-name">Mike R.</div>
+            <div class="author-role">Developer</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>
 {% endblock %}
 
 {% block extra_css %}
 <style>
-.beautiful-container {
+.hero-container {
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
-/* Animated Background */
-.animated-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-}
-
-.bg-gradient {
+/* Floating Elements Animation */
+.floating-elements {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
-  opacity: 0.1;
+  pointer-events: none;
+  z-index: 1;
 }
 
-.floating-shapes {
+.float-element {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.shape {
-  position: absolute;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
   border-radius: 50%;
-  background: rgba(255,255,255,0.1);
-  animation: float-shape 20s infinite ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 20px;
+  animation: float 6s ease-in-out infinite;
 }
 
-.shape-1 {
-  width: 80px;
-  height: 80px;
+.float-1 {
   top: 10%;
   left: 10%;
+  width: 60px;
+  height: 60px;
   animation-delay: 0s;
 }
 
-.shape-2 {
-  width: 60px;
-  height: 60px;
+.float-2 {
   top: 20%;
   right: 15%;
-  animation-delay: 5s;
+  width: 80px;
+  height: 80px;
+  animation-delay: 2s;
 }
 
-.shape-3 {
-  width: 100px;
-  height: 100px;
+.float-3 {
   bottom: 30%;
-  left: 20%;
-  animation-delay: 10s;
-}
-
-.shape-4 {
-  width: 40px;
-  height: 40px;
-  top: 60%;
-  right: 30%;
-  animation-delay: 15s;
-}
-
-.shape-5 {
-  width: 70px;
-  height: 70px;
-  bottom: 20%;
-  right: 10%;
-  animation-delay: 7s;
-}
-
-@keyframes float-shape {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  25% { transform: translateY(-20px) rotate(90deg); }
-  50% { transform: translateY(0) rotate(180deg); }
-  75% { transform: translateY(20px) rotate(270deg); }
-}
-
-/* Main Wrapper */
-.main-wrapper {
-  position: relative;
-  z-index: 1;
-  background: rgba(15, 23, 42, 0.95);
-  backdrop-filter: blur(10px);
-  min-height: 100vh;
-}
-
-/* Header */
-.main-header {
-  padding: 40px 0;
-  text-align: center;
-}
-
-.header-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 60px;
-}
-
-.logo-section {
-  text-align: left;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.logo-icon {
+  left: 5%;
   width: 50px;
   height: 50px;
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 8px;
+  animation-delay: 4s;
 }
 
-.logo-icon i {
-  font-size: 24px;
-  color: white;
+.float-4 {
+  bottom: 20%;
+  right: 10%;
+  width: 70px;
+  height: 70px;
+  animation-delay: 1s;
 }
 
-.logo-text {
-  font-size: 24px;
-  font-weight: 700;
-  color: #ffffff;
-}
-
-.tagline {
-  color: #94a3b8;
-  font-size: 14px;
-}
-
-.header-stats {
-  display: flex;
-  gap: 30px;
-}
-
-.stat-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.stat-icon {
-  width: 40px;
-  height: 40px;
-  background: rgba(255,255,255,0.1);
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.stat-icon i {
-  color: #667eea;
-  font-size: 18px;
-}
-
-.stat-number {
-  font-size: 20px;
-  font-weight: 700;
-  color: #ffffff;
-}
-
-.stat-label {
-  font-size: 12px;
-  color: #94a3b8;
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(10deg); }
 }
 
 /* Hero Section */
 .hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 60px 40px;
+  min-height: 100vh;
+  position: relative;
+  z-index: 2;
 }
 
 .hero-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  gap: 60px;
+  flex: 1;
+  max-width: 600px;
 }
 
-.hero-left {
-  flex: 1;
+.welcome-card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 24px;
+  margin-bottom: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.welcome-icon {
+  font-size: 40px;
+  margin-bottom: 12px;
+}
+
+.welcome-title {
+  color: white;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-subtitle {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 16px;
+  margin: 0;
+}
+
+.main-hero {
+  text-align: center;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 107, 107, 0.2);
+  color: #ff6b6b;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  border: 1px solid rgba(255, 107, 107, 0.3);
 }
 
 .hero-title {
-  font-size: 3.5rem;
+  font-size: clamp(36px, 5vw, 56px);
   font-weight: 800;
   line-height: 1.1;
-  margin: 0 0 20px 0;
+  margin-bottom: 24px;
 }
 
 .title-gradient {
-  background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+  background: linear-gradient(135deg, #ffffff, #f0f0f0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.title-highlight {
+  background: linear-gradient(135deg, #ff6b6b, #feca57);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .hero-description {
-  font-size: 1.2rem;
-  color: #e5e7eb;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 18px;
   line-height: 1.6;
-  margin: 0 0 30px 0;
+  margin-bottom: 32px;
   max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  display: block;
+  font-size: 32px;
+  font-weight: 800;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.stat-label {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .hero-buttons {
   display: flex;
   gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .hero-btn {
+  position: relative;
+  padding: 16px 32px;
   border: none;
   border-radius: 12px;
-  padding: 16px 24px;
+  font-size: 16px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  position: relative;
   overflow: hidden;
 }
 
 .hero-btn.primary {
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: linear-gradient(135deg, #ff6b6b, #feca57);
   color: white;
+  box-shadow: 0 8px 24px rgba(255, 107, 107, 0.3);
+}
+
+.hero-btn.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(255, 107, 107, 0.4);
+}
+
+.btn-glow {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s;
+}
+
+.hero-btn.primary:hover .btn-glow {
+  left: 100%;
 }
 
 .hero-btn.secondary {
-  background: rgba(255,255,255,0.1);
-  color: #e5e7eb;
-  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
 }
 
-.hero-btn:hover {
+.hero-btn.secondary:hover {
+  background: rgba(255, 255, 255, 0.2);
   transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
 }
 
 .btn-content {
   display: flex;
   align-items: center;
   gap: 8px;
+  position: relative;
+  z-index: 1;
 }
 
 /* Hero Visual */
-.hero-right {
+.hero-visual {
   flex: 1;
   display: flex;
   justify-content: center;
-}
-
-.hero-visual {
-  position: relative;
+  align-items: center;
 }
 
 .phone-mockup {
-  width: 200px;
-  height: 400px;
-  background: linear-gradient(135deg, #1a1a2e, #2d2d44);
-  border-radius: 30px;
-  border: 2px solid rgba(255,255,255,0.1);
+  width: 280px;
+  height: 560px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border-radius: 40px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  padding: 20px;
   position: relative;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
 }
 
 .phone-screen {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 160px;
-  height: 320px;
+  width: 100%;
+  height: 100%;
   background: linear-gradient(135deg, #667eea, #764ba2);
-  border-radius: 20px;
+  border-radius: 30px;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  overflow: hidden;
+}
+
+.screen-content {
+  text-align: center;
+  color: white;
+  padding: 20px;
+}
+
+.app-header {
+  margin-bottom: 30px;
 }
 
 .app-icon {
-  width: 50px;
-  height: 50px;
-  background: rgba(255,255,255,0.2);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.app-icon i {
-  font-size: 24px;
-  color: white;
+  font-size: 40px;
+  margin-bottom: 12px;
 }
 
 .app-title {
-  color: white;
-  font-weight: 600;
   font-size: 18px;
+  font-weight: 600;
 }
 
-.floating-icons {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
-
-.float-icon {
-  position: absolute;
-  width: 40px;
-  height: 40px;
-  background: rgba(255,255,255,0.1);
+.progress-ring {
+  width: 120px;
+  height: 120px;
+  border: 8px solid rgba(255, 255, 255, 0.2);
   border-radius: 50%;
+  margin: 0 auto 20px;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: float-icon 3s ease-in-out infinite;
 }
 
-.icon-1 {
-  top: 10%;
-  left: 10%;
-  animation-delay: 0s;
+.progress-fill {
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  width: 120px;
+  height: 120px;
+  border: 8px solid #ff6b6b;
+  border-radius: 50%;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  transform: rotate(-45deg);
 }
 
-.icon-2 {
-  top: 20%;
-  right: 15%;
-  animation-delay: 1s;
+.progress-text {
+  font-size: 24px;
+  font-weight: 700;
 }
 
-.icon-3 {
-  bottom: 30%;
-  left: 20%;
-  animation-delay: 2s;
+.stat-label {
+  font-size: 14px;
+  opacity: 0.8;
+  margin-bottom: 4px;
 }
 
-@keyframes float-icon {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+.stat-value {
+  font-size: 16px;
+  font-weight: 600;
 }
 
 /* Features Section */
 .features {
   padding: 80px 40px;
-  background: rgba(255,255,255,0.02);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
 }
 
 .section-header {
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 60px;
 }
 
-.section-header h2 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #ffffff;
-  margin: 0 0 10px 0;
+.section-title {
+  font-size: 36px;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 16px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.section-header p {
-  font-size: 1.1rem;
-  color: #94a3b8;
+.section-subtitle {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 18px;
   margin: 0;
 }
 
@@ -642,323 +579,167 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 30px;
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 0 auto;
 }
 
 .feature-card {
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
   border-radius: 20px;
   padding: 30px;
-  cursor: pointer;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   transition: all 0.3s ease;
   position: relative;
-}
-
-.feature-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, transparent, rgba(102, 126, 234, 0.1));
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.feature-card:hover::before {
-  opacity: 1;
+  overflow: hidden;
 }
 
 .feature-card:hover {
   transform: translateY(-8px);
-  border-color: #667eea;
-  box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.feature-hover {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s;
+}
+
+.feature-card:hover .feature-hover {
+  left: 100%;
 }
 
 .feature-icon {
-  margin-bottom: 20px;
-}
-
-.icon-circle {
   width: 60px;
   height: 60px;
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: linear-gradient(135deg, #ff6b6b, #feca57);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.icon-circle i {
-  font-size: 24px;
   color: white;
+  font-size: 24px;
+  margin: 0 auto 20px;
+  box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
 }
 
 .feature-card h3 {
-  font-size: 1.3rem;
+  color: white;
+  font-size: 20px;
   font-weight: 600;
-  color: #ffffff;
-  margin: 0 0 12px 0;
+  margin-bottom: 12px;
 }
 
 .feature-card p {
-  color: #94a3b8;
-  line-height: 1.6;
-  margin: 0 0 20px 0;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0;
 }
 
-.feature-points {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.point {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #22c55e;
-  font-size: 14px;
-}
-
-.point i {
-  font-size: 12px;
-}
-
-/* Testimonials */
+/* Testimonials Section */
 .testimonials {
   padding: 80px 40px;
-  background: rgba(255,255,255,0.03);
 }
 
 .testimonials-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 30px;
-  max-width: 1200px;
+  max-width: 800px;
   margin: 0 auto;
 }
 
 .testimonial-card {
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
   border-radius: 20px;
   padding: 30px;
-}
-
-.testimonial-avatar {
-  margin-bottom: 20px;
-}
-
-.testimonial-avatar img {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .testimonial-content {
   margin-bottom: 20px;
 }
 
-.testimonial-text {
-  font-style: italic;
-  color: #e5e7eb;
-  line-height: 1.6;
-  margin-bottom: 20px;
+.stars {
+  color: #feca57;
+  font-size: 18px;
+  margin-bottom: 16px;
+}
+
+.testimonial-content p {
+  color: rgba(255, 255, 255, 0.9);
   font-size: 16px;
+  line-height: 1.6;
+  margin: 0;
+  font-style: italic;
 }
 
 .testimonial-author {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 12px;
+}
+
+.author-avatar {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #ff6b6b, #feca57);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
 }
 
 .author-name {
+  color: white;
   font-weight: 600;
-  color: #ffffff;
+  font-size: 14px;
 }
 
 .author-role {
-  color: #94a3b8;
-  font-size: 14px;
-}
-
-.testimonial-rating {
-  color: #fbbf24;
-}
-
-.testimonial-rating i {
-  margin-right: 2px;
-}
-
-/* CTA Section */
-.cta {
-  padding: 80px 40px;
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
-}
-
-.cta-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  gap: 60px;
-}
-
-.cta-left h2 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #ffffff;
-  margin: 0 0 20px 0;
-}
-
-.cta-left p {
-  font-size: 1.2rem;
-  color: #94a3b8;
-  margin: 0 0 30px 0;
-  max-width: 400px;
-}
-
-.cta-benefits {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.benefit {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  color: #22c55e;
-}
-
-.benefit i {
-  font-size: 16px;
-}
-
-.cta-right {
-  flex: 1;
-  text-align: center;
-}
-
-.cta-visual {
-  margin-bottom: 30px;
-}
-
-.success-metrics {
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-}
-
-.metric {
-  text-align: center;
-}
-
-.metric-number {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #667eea;
-  margin-bottom: 8px;
-}
-
-.metric-label {
-  color: #94a3b8;
-  font-size: 14px;
-}
-
-.cta-btn {
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  border: none;
-  border-radius: 16px;
-  padding: 20px 40px;
-  color: white;
-  font-size: 1.1rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
-}
-
-.cta-btn:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
-}
-
-/* Welcome Message Styles */
-.welcome-message {
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(168, 85, 247, 0.1));
-  border-radius: 16px;
-  padding: 20px;
-  margin-bottom: 20px;
-  border: 1px solid rgba(102, 126, 234, 0.2);
-  text-align: center;
-}
-
-.welcome-title {
-  font-size: 24px;
-  font-weight: 700;
-  color: #333;
-  margin-bottom: 8px;
-}
-
-.welcome-subtitle {
-  color: #666;
-  font-size: 16px;
-  margin: 0;
-}
-
-.main-hero-content {
-  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 12px;
 }
 
 /* Mobile Responsive */
 @media (max-width: 768px) {
-  .header-content {
+  .hero {
     flex-direction: column;
-    gap: 30px;
+    padding: 40px 20px;
+    text-align: center;
   }
   
   .hero-content {
-    flex-direction: column;
-    gap: 30px;
-    text-align: center;
+    order: 2;
+    margin-bottom: 40px;
   }
   
-  .hero-left {
-    text-align: center;
+  .hero-visual {
+    order: 1;
+    margin-bottom: 40px;
   }
   
-  .welcome-message {
-    text-align: center;
-    margin-bottom: 15px;
+  .phone-mockup {
+    width: 200px;
+    height: 400px;
   }
   
-  .welcome-title {
-    font-size: 20px;
-  }
-  
-  .welcome-subtitle {
-    font-size: 14px;
-  }
-  
-  .hero-title {
-    font-size: 28px;
-  }
-  
-  .hero-description {
-    font-size: 16px;
-    line-height: 1.5;
+  .hero-stats {
+    gap: 20px;
   }
   
   .hero-buttons {
     flex-direction: column;
-    gap: 15px;
     align-items: center;
   }
   
@@ -967,26 +748,12 @@
     max-width: 280px;
   }
   
-  .hero-right {
-    display: none;
+  .features, .testimonials {
+    padding: 60px 20px;
   }
   
-  .features-grid {
+  .features-grid, .testimonials-grid {
     grid-template-columns: 1fr;
-  }
-  
-  .testimonials-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .cta-content {
-    flex-direction: column;
-    gap: 40px;
-  }
-  
-  .success-metrics {
-    flex-direction: column;
-    gap: 20px;
   }
 }
 </style>
@@ -1002,19 +769,6 @@ function goToWellness() {
   window.location.href = '/wellness';
 }
 
-function watchDemo() {
-  alert('Demo video coming soon! Start your assessment now.');
-}
-
-function goToFeature(feature) {
-  const routes = {
-    'mood': '/mood-analysis',
-    'wellness': '/wellness',
-    'dashboard': '/dashboard'
-  };
-  window.location.href = routes[feature];
-}
-
 function startJourney() {
   window.location.href = '/mood-analysis';
 }
@@ -1023,13 +777,16 @@ function startJourney() {
 document.addEventListener('DOMContentLoaded', function() {
   const elements = document.querySelectorAll('.feature-card, .testimonial-card');
   elements.forEach((el, index) => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(50px)';
     setTimeout(() => {
-      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-      el.style.opacity = '1';
-      el.style.transform = 'translateY(0)';
-    }, index * 200);
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(30px)';
+      el.style.transition = 'all 0.6s ease';
+      
+      setTimeout(() => {
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
+      }, 100);
+    }, index * 100);
   });
 });
 </script>
