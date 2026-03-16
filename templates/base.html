@@ -102,7 +102,7 @@
   <div class="nav-container">
     <div class="nav-brand">
       <i class="fa-solid fa-brain"></i>
-      <span>Digital Predictor</span>
+      <span>Digital Wellness</span>
     </div>
     <div class="nav-menu-toggle" onclick="toggleMobileMenu()">
       <i class="fa-solid fa-bars"></i>
@@ -110,29 +110,28 @@
   </div>
   
   <div class="nav-items" id="navItems">
-    <!-- Main navigation items -->
-    <div class="nav-section">
-      <h4 class="nav-section-title">Main Features</h4>
-      <a href="/" class="nav-item {% if request.endpoint == 'home' %}active{% endif %}">
-        <i class="fa-solid fa-home"></i>
-        <span>Home</span>
-      </a>
-      <a href="/mood-analysis" class="nav-item {% if request.endpoint == 'mood_analysis' %}active{% endif %}">
-        <i class="fa-solid fa-brain"></i>
-        <span>Mood Analysis</span>
-      </a>
-      <a href="/dashboard" class="nav-item {% if request.endpoint == 'dashboard' %}active{% endif %}">
-        <i class="fa-solid fa-chart-line"></i>
-        <span>Dashboard</span>
-      </a>
-      <a href="/wellness" class="nav-item {% if request.endpoint == 'wellness' %}active{% endif %}">
-        <i class="fa-solid fa-heart"></i>
-        <span>Wellness</span>
-      </a>
-    </div>
-    
     {% if session.username %}
-      <!-- Authenticated user -->
+      <!-- Authenticated user navigation -->
+      <div class="nav-section">
+        <h4 class="nav-section-title">Welcome {{ session.username }}</h4>
+        <a href="/" class="nav-item {% if request.endpoint == 'home' %}active{% endif %}">
+          <i class="fa-solid fa-home"></i>
+          <span>Home</span>
+        </a>
+        <a href="/mood-analysis" class="nav-item {% if request.endpoint == 'mood_analysis' %}active{% endif %}">
+          <i class="fa-solid fa-brain"></i>
+          <span>Mood Analysis</span>
+        </a>
+        <a href="/dashboard" class="nav-item {% if request.endpoint == 'dashboard' %}active{% endif %}">
+          <i class="fa-solid fa-chart-line"></i>
+          <span>Dashboard</span>
+        </a>
+        <a href="/wellness" class="nav-item {% if request.endpoint == 'wellness' %}active{% endif %}">
+          <i class="fa-solid fa-heart"></i>
+          <span>Wellness</span>
+        </a>
+      </div>
+      
       <div class="nav-section">
         <h4 class="nav-section-title">Account</h4>
         <div class="nav-user-profile">
@@ -141,7 +140,7 @@
           </div>
           <div class="user-info">
             <span class="username">{{ session.username }}</span>
-            <a href="/logout" class="logout-link">
+            <a href="/logout" class="logout-btn">
               <i class="fa-solid fa-sign-out-alt"></i>
               Logout
             </a>
@@ -149,9 +148,9 @@
         </div>
       </div>
     {% else %}
-      <!-- Non-authenticated user -->
+      <!-- Non-authenticated user navigation -->
       <div class="nav-section">
-        <h4 class="nav-section-title">Account</h4>
+        <h4 class="nav-section-title">Get Started</h4>
         <a href="/login" class="nav-item {% if request.endpoint == 'login' %}active{% endif %}">
           <i class="fa-solid fa-sign-in-alt"></i>
           <span>Login</span>
@@ -159,6 +158,14 @@
         <a href="/signup" class="nav-item {% if request.endpoint == 'signup' %}active{% endif %}">
           <i class="fa-solid fa-user-plus"></i>
           <span>Sign Up</span>
+        </a>
+      </div>
+      
+      <div class="nav-section">
+        <h4 class="nav-section-title">Learn More</h4>
+        <a href="/" class="nav-item {% if request.endpoint == 'home' %}active{% endif %}">
+          <i class="fa-solid fa-home"></i>
+          <span>Home</span>
         </a>
       </div>
     {% endif %}
@@ -174,28 +181,40 @@
 
 <!-- Bottom Navigation (Mobile App Style) -->
 <div class="bottom-nav">
-  <a href="/" class="bottom-nav-item {% if request.endpoint == 'home' %}active{% endif %}">
-    <i class="fa-solid fa-home"></i>
-    <span>Home</span>
-  </a>
-  <a href="/mood-analysis" class="bottom-nav-item {% if request.endpoint == 'mood_analysis' %}active{% endif %}">
-    <i class="fa-solid fa-brain"></i>
-    <span>Mood</span>
-  </a>
-  <a href="/dashboard" class="bottom-nav-item {% if request.endpoint == 'dashboard' %}active{% endif %}">
-    <i class="fa-solid fa-chart-line"></i>
-    <span>Dashboard</span>
-  </a>
-  <a href="/wellness" class="bottom-nav-item {% if request.endpoint == 'wellness' %}active{% endif %}">
-    <i class="fa-solid fa-heart"></i>
-    <span>Wellness</span>
-  </a>
-  
-  {% if not session.username %}
+  {% if session.username %}
+    <!-- Authenticated user bottom nav -->
+    <a href="/" class="bottom-nav-item {% if request.endpoint == 'home' %}active{% endif %}">
+      <i class="fa-solid fa-home"></i>
+      <span>Home</span>
+    </a>
+    <a href="/mood-analysis" class="bottom-nav-item {% if request.endpoint == 'mood_analysis' %}active{% endif %}">
+      <i class="fa-solid fa-brain"></i>
+      <span>Mood</span>
+    </a>
+    <a href="/dashboard" class="bottom-nav-item {% if request.endpoint == 'dashboard' %}active{% endif %}">
+      <i class="fa-solid fa-chart-line"></i>
+      <span>Dashboard</span>
+    </a>
+    <a href="/wellness" class="bottom-nav-item {% if request.endpoint == 'wellness' %}active{% endif %}">
+      <i class="fa-solid fa-heart"></i>
+      <span>Wellness</span>
+    </a>
+  {% else %}
+    <!-- Non-authenticated user bottom nav -->
+    <a href="/" class="bottom-nav-item {% if request.endpoint == 'home' %}active{% endif %}">
+      <i class="fa-solid fa-home"></i>
+      <span>Home</span>
+    </a>
     <a href="/login" class="bottom-nav-item {% if request.endpoint == 'login' %}active{% endif %}">
       <i class="fa-solid fa-sign-in-alt"></i>
       <span>Login</span>
     </a>
+    <a href="/signup" class="bottom-nav-item {% if request.endpoint == 'signup' %}active{% endif %}">
+      <i class="fa-solid fa-user-plus"></i>
+      <span>Sign Up</span>
+    </a>
+    <div class="bottom-nav-spacer"></div>
+    <div class="bottom-nav-spacer"></div>
   {% endif %}
 </div>
 
