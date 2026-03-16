@@ -72,6 +72,11 @@
             <h2 class="welcome-title">Welcome back, {{ session.username }}! 👋</h2>
             <p class="welcome-subtitle">Ready to continue your digital wellness journey?</p>
           </div>
+          {% else %}
+          <div class="welcome-message">
+            <h2 class="welcome-title">Welcome to Digital Wellness! 🌟</h2>
+            <p class="welcome-subtitle">Discover your relationship with technology</p>
+          </div>
           {% endif %}
           
           <div class="main-hero-content">

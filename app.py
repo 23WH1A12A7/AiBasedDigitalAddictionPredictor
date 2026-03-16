@@ -107,26 +107,34 @@ def login_required(f):
 
 @app.route("/")
 def home():
-    # Check if user is authenticated
-    if 'user_id' not in session or 'username' not in session:
-        return render_template("landing.html")
-    
-    # User is authenticated, show home page
+    # Direct access without authentication
     return render_template("beautiful_home.html")
 
 @app.route("/mood-analysis")
-@login_required
 def mood_analysis():
+    # Create a session if not exists for demo purposes
+    if 'user_id' not in session:
+        session['user_id'] = f"demo_user_{random.randint(10000, 99999)}"
+        session['username'] = "Demo User"
+        session.permanent = True
     return render_template("mood_analysis_new.html")
 
 @app.route("/dashboard")
-@login_required
 def dashboard():
+    # Create a session if not exists for demo purposes
+    if 'user_id' not in session:
+        session['user_id'] = f"demo_user_{random.randint(10000, 99999)}"
+        session['username'] = "Demo User"
+        session.permanent = True
     return render_template("dashboard_new.html")
 
 @app.route("/wellness")
-@login_required
 def wellness():
+    # Create a session if not exists for demo purposes
+    if 'user_id' not in session:
+        session['user_id'] = f"demo_user_{random.randint(10000, 99999)}"
+        session['username'] = "Demo User"
+        session.permanent = True
     return render_template("wellness_new.html")
 
 @app.route("/api/mood-analysis", methods=["POST"])

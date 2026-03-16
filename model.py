@@ -18,7 +18,7 @@ print(df.tail())
 print(df.shape)
 print(df.info())
 
-# 🧼 Data Cleaning
+#  Data Cleaning
 print("Missing values:\n", df.isnull().sum())
 df.dropna(inplace=True)
 
