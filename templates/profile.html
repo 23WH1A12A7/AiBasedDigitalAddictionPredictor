@@ -1,0 +1,690 @@
+{% extends "base.html" %}
+
+{% block title %}Profile Settings{% endblock %}
+
+{% block content %}
+<div class="profile-page">
+  <section class="profile-hero">
+    <div class="profile-hero-card">
+      <div class="profile-avatar">
+        {% if user.profile_photo %}
+          <img src="{{ user.profile_photo }}" alt="Profile photo">
+        {% else %}
+          {{ (user.username or 'U')[:1]|upper }}
+        {% endif %}
+      </div>
+      <div class="profile-copy">
+        <p class="eyebrow">Account Center</p>
+        <div class="profile-status-pill">
+          <i class="fa-solid fa-shield-check"></i>
+          <span>Profile Verified</span>
+        </div>
+        <h1>{{ user.username }}</h1>
+        <p>Manage your profile, security settings, and your current saved mood from one place.</p>
+      </div>
+      <div class="profile-stats">
+        <div class="mini-stat">
+          <span class="mini-label">Today's Mood</span>
+          <strong>{{ saved_mood_count }}</strong>
+        </div>
+        <div class="mini-stat">
+          <span class="mini-label">Current Streak</span>
+          <strong>{{ streak_data.current_streak }}</strong>
+        </div>
+        <div class="mini-stat">
+          <span class="mini-label">Task Points</span>
+          <strong>{{ points_breakdown.task_points }}</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {% if profile_message %}
+  <div class="profile-alert success">{{ profile_message }}</div>
+  {% endif %}
+  {% if profile_error %}
+  <div class="profile-alert error">{{ profile_error }}</div>
+  {% endif %}
+
+  <section class="profile-grid">
+    <div class="profile-card">
+      <div class="card-head">
+        <div class="card-head-icon">
+          <i class="fa-solid fa-user-pen"></i>
+        </div>
+        <div class="card-head-copy">
+          <h2>Edit Profile</h2>
+          <p>These details update your account and navigation display.</p>
+        </div>
+      </div>
+      <button type="button" class="toggle-btn" onclick="toggleProfileSection('profileForm')">
+        <i class="fa-solid fa-pen"></i>
+        <span>Edit Profile</span>
+      </button>
+      <form method="post" action="/profile/update" class="settings-form is-hidden" id="profileForm">
+        <div class="photo-upload-row">
+          <div class="photo-preview" id="profilePhotoPreview">
+            {% if user.profile_photo %}
+              <img src="{{ user.profile_photo }}" alt="Profile photo preview">
+            {% else %}
+              <span>{{ (user.username or 'U')[:1]|upper }}</span>
+            {% endif %}
+          </div>
+          <div class="photo-upload-controls">
+            <span>Profile Photo</span>
+            <input type="file" id="profilePhotoInput" accept="image/*">
+            <input type="hidden" name="profile_photo_data" id="profilePhotoData" value="{{ user.profile_photo or '' }}">
+            <small>Choose a square image for the best result. Large photos are resized automatically.</small>
+          </div>
+        </div>
+        <label>
+          <span>Name</span>
+          <input type="text" name="username" value="{{ user.username }}" required>
+        </label>
+        <label>
+          <span>Email</span>
+          <input type="email" name="email" value="{{ user.email }}" required>
+        </label>
+        <button type="submit" class="primary-btn">Save Profile</button>
+      </form>
+    </div>
+
+    <div class="profile-card">
+      <div class="card-head">
+        <div class="card-head-icon">
+          <i class="fa-solid fa-lock"></i>
+        </div>
+        <div class="card-head-copy">
+          <h2>Security</h2>
+          <p>If you're already logged in, the current password is optional for your local account.</p>
+        </div>
+      </div>
+      <button type="button" class="toggle-btn" onclick="toggleProfileSection('passwordForm')">
+        <i class="fa-solid fa-key"></i>
+        <span>Change Password</span>
+      </button>
+      <form method="post" action="/profile/password" class="settings-form is-hidden" id="passwordForm">
+        <label>
+          <span>Current Password (optional)</span>
+          <input type="password" name="current_password" placeholder="Leave blank if you're already signed in">
+        </label>
+        <label>
+          <span>New Password</span>
+          <input type="password" name="new_password" required>
+        </label>
+        <label>
+          <span>Confirm Password</span>
+          <input type="password" name="confirm_password" required>
+        </label>
+        <button type="submit" class="secondary-btn">Update Password</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="profile-grid profile-grid-secondary">
+    <div class="profile-card">
+      <div class="card-head">
+        <div class="card-head-icon">
+          <i class="fa-solid fa-face-smile"></i>
+        </div>
+        <div class="card-head-copy">
+          <h2>Today's Mood</h2>
+          <p>Your latest mood for today is stored in the backend `daily_mood_status` table and updated if you change it.</p>
+        </div>
+      </div>
+      <div class="mood-history" id="today-mood">
+        {% if today_mood %}
+          <div class="mood-row">
+            {% set mood_emoji = {'amazing':'😄','good':'😊','okay':'😐','low':'😔','struggling':'😢'} %}
+            <div class="mood-main">
+              <div class="mood-emoji-chip">{{ mood_emoji.get(today_mood.mood, '🙂') }}</div>
+              <div>
+                <strong>{{ today_mood.mood|title }}</strong>
+                <p>{{ today_mood.note or 'No note added for today.' }}</p>
+              </div>
+            </div>
+            <div class="mood-meta">
+              <span>Score {{ today_mood.score }}/5</span>
+              <span>{{ today_mood.updated_at }}</span>
+            </div>
+          </div>
+        {% else %}
+          <div class="empty-state">No mood saved for today yet. Use the wellness page to save it.</div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="profile-card">
+      <div class="card-head">
+        <div class="card-head-icon">
+          <i class="fa-solid fa-chart-simple"></i>
+        </div>
+        <div class="card-head-copy">
+          <h2>Weekly Points</h2>
+          <p>Points this week are the sum of completed task points plus achievement bonus points.</p>
+        </div>
+      </div>
+      <div class="points-breakdown">
+        <div class="breakdown-row">
+          <span>Task points</span>
+          <strong>{{ points_breakdown.task_points }}</strong>
+        </div>
+        <div class="breakdown-row">
+          <span>Achievement bonus</span>
+          <strong>{{ points_breakdown.achievement_points }}</strong>
+        </div>
+        <div class="breakdown-row total">
+          <span>Total this week</span>
+          <strong>{{ points_breakdown.total_points }}</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.profile-page {
+  min-height: 100vh;
+  padding: 2rem 1rem 3rem;
+  background:
+    radial-gradient(circle at top left, rgba(96, 165, 250, 0.12), transparent 24%),
+    linear-gradient(180deg, #07111f 0%, #0b1728 52%, #081321 100%);
+  color: #f8fafc;
+}
+
+.profile-hero-card,
+.profile-card,
+.profile-alert {
+  max-width: 1180px;
+  margin: 0 auto 1.25rem;
+  border-radius: 28px;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  background: linear-gradient(180deg, rgba(15, 28, 44, 0.92), rgba(8, 18, 31, 0.84));
+  box-shadow: 0 24px 60px rgba(2, 8, 23, 0.32);
+}
+
+.profile-hero-card {
+  padding: 2.2rem;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1.75rem;
+  align-items: center;
+}
+
+.profile-avatar {
+  width: 84px;
+  height: 84px;
+  border-radius: 26px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #4ecdc4, #fb7185);
+  color: #04111d;
+  font-size: 2rem;
+  font-weight: 800;
+  overflow: hidden;
+}
+
+.profile-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.eyebrow {
+  margin: 0 0 0.35rem;
+  color: #60a5fa;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.78rem;
+}
+
+.profile-copy h1 {
+  margin: 0.5rem 0 0;
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.profile-copy p {
+  margin: 0.7rem 0 0;
+  color: #94a3b8;
+  max-width: 640px;
+  line-height: 1.6;
+}
+
+.profile-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
+  background: rgba(78, 205, 196, 0.12);
+  border: 1px solid rgba(78, 205, 196, 0.22);
+  color: #a7f3d0;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.profile-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(120px, 1fr));
+  gap: 1rem;
+}
+
+.mini-stat {
+  padding: 1.1rem 1rem;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.04);
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.mini-label {
+  display: block;
+  color: #94a3b8;
+  font-size: 0.8rem;
+  margin-bottom: 0.45rem;
+}
+
+.mini-stat strong {
+  font-size: 1.6rem;
+}
+
+.profile-alert {
+  padding: 1rem 1.2rem;
+}
+
+.profile-alert.success {
+  color: #a7f3d0;
+  border-color: rgba(52, 211, 153, 0.28);
+}
+
+.profile-alert.error {
+  color: #fecaca;
+  border-color: rgba(248, 113, 113, 0.28);
+}
+
+.profile-grid {
+  max-width: 1180px;
+  margin: 0 auto 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.profile-grid-secondary {
+  align-items: start;
+}
+
+.profile-card {
+  padding: 1.7rem;
+  margin-bottom: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.profile-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(96, 165, 250, 0), rgba(96, 165, 250, 0.35), rgba(251, 113, 133, 0));
+}
+
+.card-head {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+.card-head-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, rgba(78, 205, 196, 0.22), rgba(251, 113, 133, 0.18));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #f8fafc;
+  font-size: 1.1rem;
+}
+
+.card-head-copy {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.card-head h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.card-head p {
+  margin: 0.45rem 0 0;
+  color: #94a3b8;
+}
+
+.settings-form {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.photo-upload-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.photo-preview {
+  width: 72px;
+  height: 72px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #4ecdc4, #fb7185);
+  display: grid;
+  place-items: center;
+  color: #04111d;
+  font-weight: 800;
+  font-size: 1.5rem;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.photo-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.photo-upload-controls {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.photo-upload-controls small {
+  color: #94a3b8;
+}
+
+.settings-form.is-hidden {
+  display: none;
+}
+
+.toggle-btn {
+  margin-top: 1rem;
+  min-height: 48px;
+  padding: 0 1.2rem;
+  border-radius: 16px;
+  border: 1px solid rgba(96, 165, 250, 0.22);
+  background: linear-gradient(180deg, rgba(96, 165, 250, 0.18), rgba(96, 165, 250, 0.1));
+  color: #f8fafc;
+  font-weight: 700;
+  cursor: pointer;
+  justify-self: start;
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  box-shadow: 0 14px 28px rgba(2, 8, 23, 0.18);
+}
+
+.toggle-btn:hover {
+  transform: translateY(-2px);
+  border-color: rgba(96, 165, 250, 0.38);
+  background: rgba(96, 165, 250, 0.18);
+}
+
+.settings-form label {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.settings-form span {
+  color: #cbd5e1;
+  font-weight: 700;
+}
+
+.settings-form input {
+  min-height: 52px;
+  padding: 0 1rem;
+  border-radius: 16px;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  background: rgba(10, 20, 34, 0.9);
+  color: #f8fafc;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.settings-form input:focus {
+  outline: none;
+  border-color: rgba(96, 165, 250, 0.42);
+  box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.12);
+  background: rgba(12, 24, 41, 0.96);
+}
+
+.primary-btn,
+.secondary-btn {
+  min-height: 52px;
+  padding: 0 1.2rem;
+  border-radius: 16px;
+  border: none;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.primary-btn {
+  background: linear-gradient(135deg, #4ecdc4, #fb7185);
+  color: #04111d;
+  box-shadow: 0 18px 30px rgba(78, 205, 196, 0.18);
+}
+
+.secondary-btn {
+  background: rgba(96, 165, 250, 0.18);
+  color: #f8fafc;
+  border: 1px solid rgba(96, 165, 250, 0.24);
+  box-shadow: 0 18px 30px rgba(30, 64, 175, 0.16);
+}
+
+.mood-history,
+.points-breakdown {
+  margin-top: 1.25rem;
+  display: grid;
+  gap: 0.9rem;
+}
+
+.mood-row,
+.breakdown-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.1rem 1.15rem;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.mood-main {
+  display: flex;
+  align-items: center;
+  gap: 0.95rem;
+}
+
+.mood-emoji-chip {
+  width: 54px;
+  height: 54px;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  font-size: 1.8rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+}
+
+.mood-row strong {
+  display: inline-block;
+  font-size: 1.05rem;
+  margin-bottom: 0.15rem;
+}
+
+.mood-row p {
+  margin: 0.3rem 0 0;
+  color: #94a3b8;
+  line-height: 1.55;
+}
+
+.mood-meta {
+  display: grid;
+  justify-items: end;
+  gap: 0.3rem;
+  color: #cbd5e1;
+  font-size: 0.9rem;
+}
+
+.breakdown-row.total {
+  border: 1px solid rgba(78, 205, 196, 0.3);
+}
+
+.empty-state {
+  padding: 1.1rem 1.15rem;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.04);
+  color: #94a3b8;
+  border: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 960px) {
+  .profile-hero-card,
+  .profile-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-stats {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .profile-page {
+    padding: 1.25rem 1rem 2rem;
+  }
+
+  .profile-card {
+    padding: 1.35rem;
+  }
+
+  .profile-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .card-head {
+    grid-template-columns: 1fr;
+  }
+
+  .mood-row,
+  .breakdown-row {
+    flex-direction: column;
+  }
+
+  .mood-meta {
+    justify-items: start;
+  }
+
+  .photo-upload-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function toggleProfileSection(sectionId) {
+  const section = document.getElementById(sectionId);
+  if (!section) return;
+  section.classList.toggle('is-hidden');
+}
+
+const profilePhotoInput = document.getElementById('profilePhotoInput');
+if (profilePhotoInput) {
+  profilePhotoInput.addEventListener('change', async (event) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    if (!file.type.startsWith('image/')) {
+      alert('Please choose an image file.');
+      return;
+    }
+
+    try {
+      const dataUrl = await resizeProfilePhoto(file);
+      const hiddenInput = document.getElementById('profilePhotoData');
+      const preview = document.getElementById('profilePhotoPreview');
+      if (hiddenInput) hiddenInput.value = dataUrl;
+      if (preview) {
+        preview.innerHTML = `<img src="${dataUrl}" alt="Profile photo preview">`;
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Could not process this image. Please choose a smaller photo.');
+    }
+  });
+}
+
+function resizeProfilePhoto(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      const img = new Image();
+      img.onload = () => {
+        const maxSize = 320;
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        if (!ctx) {
+          reject(new Error('Canvas is not available'));
+          return;
+        }
+
+        let { width, height } = img;
+        if (width > height) {
+          if (width > maxSize) {
+            height = Math.round((height * maxSize) / width);
+            width = maxSize;
+          }
+        } else if (height > maxSize) {
+          width = Math.round((width * maxSize) / height);
+          height = maxSize;
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        ctx.drawImage(img, 0, 0, width, height);
+
+        let quality = 0.85;
+        let dataUrl = canvas.toDataURL('image/jpeg', quality);
+        while (dataUrl.length > 350000 && quality > 0.45) {
+          quality -= 0.1;
+          dataUrl = canvas.toDataURL('image/jpeg', quality);
+        }
+
+        resolve(dataUrl);
+      };
+      img.onerror = () => reject(new Error('Invalid image file'));
+      img.src = reader.result;
+    };
+
+    reader.onerror = () => reject(new Error('Failed to read image'));
+    reader.readAsDataURL(file);
+  });
+}
+</script>
+{% endblock %}

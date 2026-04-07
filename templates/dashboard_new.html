@@ -8,40 +8,37 @@
   <section class="dashboard-hero">
     <div class="hero-content">
       <div class="welcome-section">
+        <div class="hero-kicker">
+          <i class="fa-solid fa-sparkles"></i>
+          <span>Wellness Overview</span>
+        </div>
         <h1>Your Digital Wellbeing</h1>
         <p>Track your progress and insights</p>
       </div>
-      
-      <div class="quick-stats">
-        <div class="stat-card">
-          <div class="stat-icon">
-            <i class="fa-solid fa-chart-line"></i>
-          </div>
-          <div class="stat-info">
-            <div class="stat-number">85%</div>
-            <div class="stat-label">Wellbeing Score</div>
-          </div>
-        </div>
-        
-        <div class="stat-card">
-          <div class="stat-icon">
-            <i class="fa-solid fa-calendar-check"></i>
-          </div>
-          <div class="stat-info">
-            <div class="stat-number">7</div>
-            <div class="stat-label">Day Streak</div>
-          </div>
-        </div>
-        
-        <div class="stat-card">
-          <div class="stat-icon">
-            <i class="fa-solid fa-trophy"></i>
-          </div>
-          <div class="stat-info">
-            <div class="stat-number">12</div>
-            <div class="stat-label">Achievements</div>
-          </div>
-        </div>
+    </div>
+  </section>
+
+  <section class="stats-section">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-label"><i class="fa-solid fa-leaf"></i> Wellbeing Score</span>
+        <span class="stat-number">0%</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label"><i class="fa-solid fa-fire"></i> Current Streak</span>
+        <span class="stat-number">0</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label"><i class="fa-solid fa-check-circle"></i> Completion Rate</span>
+        <span class="stat-number">0%</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label"><i class="fa-solid fa-star"></i> Points This Week</span>
+        <span class="stat-number">0</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label"><i class="fa-solid fa-trophy"></i> Achievements</span>
+        <span class="stat-number">0</span>
       </div>
     </div>
   </section>
@@ -56,12 +53,28 @@
     <div class="charts-grid">
       <div class="chart-card">
         <div class="chart-header">
-          <h3>Screen Time Trends</h3>
+          <h3>Mood Trend</h3>
           <div class="chart-period">
-            <select class="period-select">
-              <option>Last 7 days</option>
-              <option>Last 30 days</option>
-              <option>Last 3 months</option>
+            <select class="period-select" data-chart="moodTrend">
+              <option>7 days</option>
+              <option>30 days</option>
+              <option>90 days</option>
+            </select>
+          </div>
+        </div>
+        <div class="chart-container">
+          <canvas id="moodTrendChart"></canvas>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-header">
+          <h3>Screen Time</h3>
+          <div class="chart-period">
+            <select class="period-select" data-chart="screenTime">
+              <option>7 days</option>
+              <option>30 days</option>
+              <option>90 days</option>
             </select>
           </div>
         </div>
@@ -69,44 +82,47 @@
           <canvas id="screenTimeChart"></canvas>
         </div>
       </div>
-      
-      <div class="chart-card">
-        <div class="chart-header">
-          <h3>Mood Patterns</h3>
-          <div class="chart-period">
-            <select class="period-select">
-              <option>Last 7 days</option>
-              <option>Last 30 days</option>
-            </select>
-          </div>
-        </div>
-        <div class="chart-container">
-          <canvas id="moodChart"></canvas>
-        </div>
-      </div>
-      
+
       <div class="chart-card">
         <div class="chart-header">
           <h3>Sleep Quality</h3>
           <div class="chart-period">
-            <select class="period-select">
-              <option>This week</option>
-              <option>Last week</option>
+            <select class="period-select" data-chart="sleepQuality">
+              <option>7 days</option>
+              <option>30 days</option>
+              <option>90 days</option>
             </select>
           </div>
         </div>
         <div class="chart-container">
-          <canvas id="sleepChart"></canvas>
+          <canvas id="sleepQualityChart"></canvas>
         </div>
       </div>
-      
+
       <div class="chart-card">
+        <div class="chart-header">
+          <h3>Task Completion</h3>
+          <div class="chart-period">
+            <select class="period-select" data-chart="completion">
+              <option>7 days</option>
+              <option>30 days</option>
+              <option>90 days</option>
+            </select>
+          </div>
+        </div>
+        <div class="chart-container">
+          <canvas id="completionChart"></canvas>
+        </div>
+      </div>
+
+      <div class="chart-card chart-card-wide">
         <div class="chart-header">
           <h3>Focus & Productivity</h3>
           <div class="chart-period">
-            <select class="period-select">
-              <option>Today</option>
-              <option>Yesterday</option>
+            <select class="period-select" data-chart="focus">
+              <option>7 days</option>
+              <option>30 days</option>
+              <option>90 days</option>
             </select>
           </div>
         </div>
@@ -261,7 +277,7 @@
   <section class="achievements-section">
     <div class="section-header">
       <h2>Recent Achievements</h2>
-      <p>Your wellness milestones</p>
+      <p>Each achievement below is unique and unlocked from real tracked activity</p>
     </div>
     
     <div class="achievements-grid">
@@ -348,278 +364,324 @@
 <style>
 .dashboard-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+  background:
+    radial-gradient(circle at top left, rgba(255, 107, 107, 0.12), transparent 24%),
+    radial-gradient(circle at top right, rgba(78, 205, 196, 0.12), transparent 26%),
+    linear-gradient(135deg, #050816 0%, #0d1326 52%, #131b31 100%);
 }
 
-/* Dashboard Hero */
 .dashboard-hero {
-  padding: 60px 40px;
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+  padding: 56px 24px 28px;
 }
 
 .hero-content {
-  max-width: 1200px;
+  max-width: 1180px;
   margin: 0 auto;
 }
 
 .welcome-section {
   text-align: center;
-  margin-bottom: 40px;
+  padding: 34px 28px;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 22px 70px rgba(0, 0, 0, 0.28);
+}
+
+.hero-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  margin-bottom: 16px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.84rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hero-kicker i {
+  color: #ffb86b;
 }
 
 .welcome-section h1 {
-  font-size: 2.5rem;
-  font-weight: 700;
+  font-size: clamp(2rem, 4vw, 3.6rem);
+  font-weight: 800;
   color: #ffffff;
-  margin: 0 0 10px 0;
+  margin: 0 0 10px;
+  letter-spacing: -0.04em;
 }
 
 .welcome-section p {
-  font-size: 1.1rem;
-  color: #94a3b8;
+  font-size: 1.02rem;
+  color: rgba(255, 255, 255, 0.68);
   margin: 0;
 }
 
-.quick-stats {
+.stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 18px;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.stats-section {
+  padding: 0 24px 24px;
 }
 
 .stat-card {
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 16px;
-  padding: 24px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 24px 22px;
   display: flex;
-  align-items: center;
-  gap: 16px;
-  transition: all 0.3s ease;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  backdrop-filter: blur(18px);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.2);
 }
 
 .stat-card:hover {
   transform: translateY(-4px);
-  border-color: #667eea;
-}
-
-.stat-icon {
-  width: 50px;
-  height: 50px;
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.stat-icon i {
-  font-size: 20px;
-  color: white;
+  border-color: rgba(78, 205, 196, 0.4);
+  box-shadow: 0 22px 52px rgba(0, 0, 0, 0.28);
 }
 
 .stat-number {
-  font-size: 1.8rem;
-  font-weight: 700;
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 800;
   color: #ffffff;
-  margin-bottom: 4px;
+  line-height: 1;
 }
 
 .stat-label {
-  font-size: 0.9rem;
-  color: #94a3b8;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.64);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
 }
 
-/* Charts Section */
-.charts-section {
-  padding: 60px 40px;
-  background: rgba(255,255,255,0.02);
+.stat-label i {
+  color: #ff8a5b;
+  font-size: 0.95rem;
+}
+
+
+.charts-section,
+.insights-section,
+.goals-section,
+.achievements-section,
+.actions-section {
+  padding: 22px 24px 28px;
 }
 
 .section-header {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 28px;
 }
 
 .section-header h2 {
-  font-size: 2rem;
-  font-weight: 700;
+  font-size: clamp(1.65rem, 3vw, 2.4rem);
+  font-weight: 800;
   color: #ffffff;
-  margin: 0 0 10px 0;
+  margin: 0 0 8px;
+  letter-spacing: -0.03em;
 }
 
 .section-header p {
-  color: #94a3b8;
+  color: rgba(255, 255, 255, 0.62);
   margin: 0;
 }
 
 .charts-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 30px;
-  max-width: 1200px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  max-width: 1180px;
   margin: 0 auto;
 }
 
+.chart-card-wide {
+  grid-column: 1 / -1;
+}
+
 .chart-card {
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 28px;
   padding: 24px;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+  backdrop-filter: blur(18px);
+  box-shadow: 0 20px 58px rgba(0, 0, 0, 0.24);
 }
 
 .chart-card:hover {
   transform: translateY(-4px);
-  border-color: #667eea;
+  border-color: rgba(255, 138, 91, 0.45);
 }
 
 .chart-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 12px;
   margin-bottom: 20px;
 }
 
 .chart-header h3 {
-  font-size: 1.2rem;
-  font-weight: 600;
+  font-size: 1.15rem;
+  font-weight: 700;
   color: #ffffff;
   margin: 0;
 }
 
 .period-select {
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 8px;
-  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 12px;
+  padding: 10px 12px;
   color: #e5e7eb;
-  font-size: 0.9rem;
+  font-size: 0.92rem;
+  min-width: 120px;
 }
 
 .chart-container {
-  height: 250px;
+  height: 280px;
   position: relative;
-}
-
-/* Insights Section */
-.insights-section {
-  padding: 60px 40px;
-  background: rgba(255,255,255,0.03);
 }
 
 .insights-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 30px;
-  max-width: 1200px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  max-width: 1180px;
   margin: 0 auto;
 }
 
 .insight-card {
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 20px;
-  padding: 30px;
-  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 24px;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+  backdrop-filter: blur(16px);
 }
 
 .insight-card:hover {
   transform: translateY(-4px);
-  border-color: #667eea;
+  border-color: rgba(78, 205, 196, 0.4);
 }
 
 .insight-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  gap: 12px;
+  margin-bottom: 18px;
 }
 
 .insight-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .insight-icon.positive {
-  background: rgba(34, 197, 94, 0.2);
-  color: #22c55e;
+  background: rgba(78, 205, 196, 0.18);
+  color: #4ecdc4;
 }
 
 .insight-icon.warning {
-  background: rgba(245, 158, 11, 0.2);
-  color: #f59e0b;
+  background: rgba(255, 138, 91, 0.18);
+  color: #ff8a5b;
+}
+
+.insight-icon.danger {
+  background: rgba(255, 107, 107, 0.18);
+  color: #ff6b6b;
 }
 
 .insight-status {
   font-size: 0.9rem;
-  font-weight: 600;
-  color: #94a3b8;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .insight-card h3 {
   font-size: 1.2rem;
-  font-weight: 600;
+  font-weight: 700;
   color: #ffffff;
-  margin: 0 0 12px 0;
+  margin: 0 0 12px;
 }
 
 .insight-card p {
-  color: #94a3b8;
-  line-height: 1.6;
-  margin: 0 0 20px 0;
+  color: rgba(255, 255, 255, 0.68);
+  line-height: 1.7;
+  margin: 0 0 18px;
 }
 
 .insight-metrics {
-  display: flex;
-  gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
 }
 
 .metric {
-  text-align: center;
+  padding: 12px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.05);
+  text-align: left;
 }
 
 .metric-value {
   display: block;
   font-size: 1.2rem;
-  font-weight: 700;
+  font-weight: 800;
   color: #ffffff;
   margin-bottom: 4px;
 }
 
 .metric-label {
-  font-size: 0.8rem;
-  color: #94a3b8;
-}
-
-/* Goals Section */
-.goals-section {
-  padding: 60px 40px;
-  background: rgba(255,255,255,0.02);
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.55);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 .goals-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 30px;
-  max-width: 1200px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  max-width: 1180px;
   margin: 0 auto;
 }
 
 .goal-card {
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 20px;
-  padding: 30px;
-  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 24px;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+  backdrop-filter: blur(16px);
 }
 
 .goal-card:hover {
   transform: translateY(-4px);
-  border-color: #667eea;
+  border-color: rgba(255, 138, 91, 0.4);
 }
 
 .goal-header {
@@ -630,10 +692,10 @@
 }
 
 .goal-icon {
-  width: 40px;
-  height: 40px;
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  border-radius: 50%;
+  width: 46px;
+  height: 46px;
+  background: linear-gradient(135deg, #ff6b6b, #ff8a5b 55%, #4ecdc4);
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -646,145 +708,143 @@
 
 .goal-progress {
   font-size: 1.2rem;
-  font-weight: 700;
-  color: #22c55e;
+  font-weight: 800;
+  color: #4ecdc4;
 }
 
 .goal-card h3 {
   font-size: 1.2rem;
-  font-weight: 600;
+  font-weight: 700;
   color: #ffffff;
-  margin: 0 0 8px 0;
+  margin: 0 0 8px;
 }
 
 .goal-card p {
-  color: #94a3b8;
+  color: rgba(255, 255, 255, 0.66);
   line-height: 1.5;
-  margin: 0 0 20px 0;
+  margin: 0 0 18px;
 }
 
 .progress-bar {
   width: 100%;
-  height: 8px;
-  background: rgba(255,255,255,0.1);
-  border-radius: 4px;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
   overflow: hidden;
   margin-bottom: 12px;
 }
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(135deg, #22c55e, #16a34a);
-  border-radius: 4px;
+  background: linear-gradient(135deg, #ff6b6b, #ff8a5b 55%, #4ecdc4);
+  border-radius: 999px;
   transition: width 0.3s ease;
 }
 
 .goal-details {
   font-size: 0.9rem;
-  color: #94a3b8;
-}
-
-/* Achievements Section */
-.achievements-section {
-  padding: 60px 40px;
-  background: rgba(255,255,255,0.03);
+  color: rgba(255, 255, 255, 0.56);
 }
 
 .achievements-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 20px;
-  max-width: 1200px;
+  max-width: 1180px;
   margin: 0 auto;
+  align-items: stretch;
 }
 
 .achievement-card {
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 16px;
-  padding: 20px;
-  display: flex;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 22px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
-  gap: 16px;
-  transition: all 0.3s ease;
+  gap: 18px;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+  min-width: 0;
+  min-height: 112px;
 }
 
 .achievement-card:hover {
   transform: translateY(-2px);
-  border-color: #667eea;
+  border-color: rgba(78, 205, 196, 0.35);
 }
 
 .achievement-card.unlocked {
-  border-color: #22c55e;
+  border-color: rgba(78, 205, 196, 0.45);
 }
 
 .achievement-card.locked {
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
 .achievement-icon {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 20px;
+  flex-shrink: 0;
 }
 
 .achievement-card.unlocked .achievement-icon {
-  background: linear-gradient(135deg, #22c55e, #16a34a);
+  background: linear-gradient(135deg, #ff6b6b, #ff8a5b 55%, #4ecdc4);
   color: white;
 }
 
 .achievement-card.locked .achievement-icon {
-  background: rgba(255,255,255,0.1);
-  color: #94a3b8;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.55);
 }
 
 .achievement-info {
   flex: 1;
+  min-width: 0;
 }
 
 .achievement-info h4 {
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 1.08rem;
+  font-weight: 700;
   color: #ffffff;
-  margin: 0 0 4px 0;
+  margin: 0 0 6px;
 }
 
 .achievement-info p {
   font-size: 0.9rem;
-  color: #94a3b8;
+  color: rgba(255, 255, 255, 0.62);
   margin: 0;
+  line-height: 1.5;
 }
 
 .achievement-date {
   font-size: 0.8rem;
-  color: #94a3b8;
-}
-
-/* Actions Section */
-.actions-section {
-  padding: 60px 40px;
-  background: rgba(255,255,255,0.02);
+  color: rgba(255, 255, 255, 0.5);
+  justify-self: end;
+  text-align: right;
+  white-space: nowrap;
 }
 
 .actions-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-  max-width: 1000px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  max-width: 980px;
   margin: 0 auto;
 }
 
 .action-btn {
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 22px;
   padding: 24px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -794,15 +854,15 @@
 
 .action-btn:hover {
   transform: translateY(-4px);
-  border-color: #667eea;
-  background: rgba(102, 126, 234, 0.1);
+  border-color: rgba(255, 138, 91, 0.35);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .btn-icon {
   width: 50px;
   height: 50px;
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  border-radius: 50%;
+  background: linear-gradient(135deg, #ff6b6b, #ff8a5b 55%, #4ecdc4);
+  border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -815,37 +875,101 @@
 
 .action-btn span {
   color: #ffffff;
-  font-weight: 600;
+  font-weight: 700;
 }
 
-/* Mobile Responsive */
-@media (max-width: 768px) {
-  .dashboard-hero h1 {
-    font-size: 2rem;
+@media (max-width: 1024px) {
+  .stats-grid,
+  .insights-grid,
+  .goals-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  
-  .quick-stats {
-    grid-template-columns: 1fr;
-  }
-  
+
   .charts-grid {
     grid-template-columns: 1fr;
   }
-  
-  .insights-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .goals-grid {
-    grid-template-columns: 1fr;
-  }
-  
+
   .achievements-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .actions-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-hero,
+  .stats-section,
+  .charts-section,
+  .insights-section,
+  .goals-section,
+  .achievements-section,
+  .actions-section {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .welcome-section {
+    padding: 26px 18px;
+  }
+
+  .stats-grid,
+  .charts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .insights-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .goals-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .achievements-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .achievement-card {
+    grid-template-columns: auto 1fr;
+  }
+
+  .achievement-date {
+    grid-column: 2;
+    justify-self: start;
+    text-align: left;
+  }
+
+  .actions-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .chart-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .chart-container {
+    height: 240px;
+  }
+
+  .insight-metrics {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .stats-grid,
+  .insights-grid,
+  .goals-grid,
+  .actions-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .chart-header {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 </style>
@@ -853,577 +977,5 @@
 
 {% block extra_js %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-// Initialize charts
-document.addEventListener('DOMContentLoaded', function() {
-  // Load all dashboard data
-  loadDashboardData();
-  
-  // Add event listeners for period selectors
-  addPeriodSelectors();
-});
-
-function loadDashboardData() {
-  // Load quick stats
-  loadQuickStats();
-  
-  // Load dashboard data from backend (without hardcoded session ID)
-  fetch('/api/dashboard-data/session')
-    .then(response => response.json())
-    .then(data => {
-      if (data.error) {
-        showNotification('Error loading dashboard data', 'error');
-        return;
-      }
-      
-      // Update quick stats
-      updateQuickStats(data.session_data);
-      
-      // Initialize charts with real data
-      initializeCharts(data.historical_data);
-      
-      // Update insights
-      updateInsights(data.session_data);
-      
-      // Log user ID for debugging
-      console.log('Dashboard loaded for user:', data.user_id);
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      showNotification('Error loading dashboard data', 'error');
-    });
-  
-  // Load achievements
-  loadAchievements();
-  
-  // Load goals
-  loadGoals();
-  
-  // Load AI insights
-  loadAIInsights();
-}
-
-function loadQuickStats() {
-  fetch('/api/quick-stats')
-    .then(response => response.json())
-    .then(stats => {
-      updateQuickStatsDisplay(stats);
-    })
-    .catch(error => {
-      console.error('Error loading quick stats:', error);
-    });
-}
-
-function updateQuickStatsDisplay(stats) {
-  // Update wellbeing score
-  const wellbeingScore = document.querySelector('.stat-number');
-  if (wellbeingScore) {
-    wellbeingScore.textContent = stats.wellbeing_score || '85%';
-  }
-  
-  // Update streak info
-  const streakCards = document.querySelectorAll('.streak-card .streak-number');
-  if (streakCards.length >= 2) {
-    streakCards[0].textContent = stats.current_streak || 0;
-    streakCards[1].textContent = stats.completion_rate || '0%';
-  }
-  
-  // Update daily tasks
-  const tasksCompleted = document.querySelector('.metric-value');
-  if (tasksCompleted && tasksCompleted.textContent.includes('/')) {
-    // This would be in the goals section
-  }
-}
-
-function loadAchievements() {
-  fetch('/api/achievements')
-    .then(response => response.json())
-    .then(achievements => {
-      updateAchievements(achievements);
-    })
-    .catch(error => {
-      console.error('Error loading achievements:', error);
-    });
-}
-
-function loadGoals() {
-  fetch('/api/goals')
-    .then(response => response.json())
-    .then(goals => {
-      updateGoals(goals);
-    })
-    .catch(error => {
-      console.error('Error loading goals:', error);
-    });
-}
-
-function loadAIInsights() {
-  fetch('/api/insights')
-    .then(response => response.json())
-    .then(insights => {
-      updateAIInsights(insights);
-    })
-    .catch(error => {
-      console.error('Error loading insights:', error);
-    });
-}
-
-function updateAchievements(achievements) {
-  const achievementsGrid = document.querySelector('.achievements-grid');
-  if (!achievementsGrid) return;
-  
-  if (achievements.length === 0) {
-    achievementsGrid.innerHTML = `
-      <div class="no-achievements">
-        <i class="fa-solid fa-trophy"></i>
-        <p>Start completing daily tasks to unlock achievements!</p>
-      </div>
-    `;
-    return;
-  }
-  
-  achievementsGrid.innerHTML = achievements.map(achievement => `
-    <div class="achievement-card ${achievement.unlocked ? 'unlocked' : 'locked'}">
-      <div class="achievement-icon">
-        <i class="fa-solid ${achievement.icon}"></i>
-      </div>
-      <div class="achievement-info">
-        <h4>${achievement.title}</h4>
-        <p>${achievement.description}</p>
-      </div>
-      <div class="achievement-date">${achievement.date}</div>
-    </div>
-  `).join('');
-}
-
-function updateGoals(goals) {
-  const goalsGrid = document.querySelector('.goals-grid');
-  if (!goalsGrid) return;
-  
-  goalsGrid.innerHTML = goals.map(goal => `
-    <div class="goal-card">
-      <div class="goal-header">
-        <h3>${goal.title}</h3>
-        <span class="goal-progress">${goal.current}/${goal.target} ${goal.unit}</span>
-      </div>
-      <div class="progress-bar">
-        <div class="progress-fill" style="width: ${goal.progress}%"></div>
-      </div>
-      <div class="goal-details">
-        <span>${goal.current}/${goal.target} ${goal.unit}</span>
-      </div>
-    </div>
-  `).join('');
-}
-
-function updateAIInsights(insights) {
-  const insightsGrid = document.querySelector('.insights-grid');
-  if (!insightsGrid) return;
-  
-  insightsGrid.innerHTML = insights.map(insight => `
-    <div class="insight-card">
-      <div class="insight-header">
-        <div class="insight-icon ${insight.status_type}">
-          <i class="fa-solid ${getStatusIcon(insight.status_type)}"></i>
-        </div>
-        <div class="insight-status">${insight.status}</div>
-      </div>
-      <h3>${insight.title}</h3>
-      <p>${insight.description}</p>
-      ${insight.metrics ? `
-        <div class="insight-metrics">
-          ${insight.metrics.map(metric => `
-            <div class="metric">
-              <span class="metric-value">${metric.value}</span>
-              <span class="metric-label">${metric.label}</span>
-            </div>
-          `).join('')}
-        </div>
-      ` : ''}
-    </div>
-  `).join('');
-}
-
-function getStatusIcon(statusType) {
-  const icons = {
-    'positive': 'fa-check-circle',
-    'warning': 'fa-exclamation-triangle',
-    'negative': 'fa-times-circle'
-  };
-  return icons[statusType] || 'fa-info-circle';
-}
-
-function addPeriodSelectors() {
-  // Add change event listeners to all period selects
-  document.querySelectorAll('.period-select').forEach(select => {
-    select.addEventListener('change', function() {
-      const period = this.value;
-      const chartTitle = this.closest('.chart-header').querySelector('h3').textContent;
-      updateChartData(chartTitle, period);
-    });
-  });
-}
-
-function updateChartData(chartTitle, period) {
-  let periodParam = '7days';
-  
-  if (period.includes('30')) {
-    periodParam = '30days';
-  } else if (period.includes('3 months')) {
-    periodParam = '90days';
-  } else if (period.includes('week')) {
-    periodParam = '7days';
-  }
-  
-  // Fetch updated data for the period using session-based endpoint
-  fetch(`/api/dashboard-data/session/${periodParam}`)
-    .then(response => response.json())
-    .then(data => {
-      if (data.error) {
-        showNotification('Error loading chart data', 'error');
-        return;
-      }
-      
-      // Update specific chart based on title
-      if (chartTitle.includes('Screen Time')) {
-        updateScreenTimeChart(data.historical_data.stress_vs_screen_time);
-      } else if (chartTitle.includes('Mood')) {
-        updateMoodChart(data.historical_data.mood_trend);
-      } else if (chartTitle.includes('Sleep')) {
-        updateSleepChart(data.historical_data.sleep_vs_mental_fatigue);
-      }
-      
-      showNotification(`Updated to show ${period.replace('Last ', '')}`, 'success');
-    })
-    .catch(error => {
-      console.error('Error updating chart data:', error);
-      showNotification('Error updating chart data', 'error');
-    });
-}
-
-function updateScreenTimeChart(data) {
-  const chart = Chart.getChart('screenTimeChart');
-  if (chart && data) {
-    chart.data.labels = data.map(d => d.date);
-    chart.data.datasets[0].data = data.map(d => d.value / 10);
-    chart.update();
-  }
-}
-
-function updateMoodChart(data) {
-  const chart = Chart.getChart('moodChart');
-  if (chart && data) {
-    chart.data.labels = data.map(d => d.date);
-    chart.data.datasets[0].data = data.map(d => d.value);
-    chart.update();
-  }
-}
-
-function updateSleepChart(data) {
-  const chart = Chart.getChart('sleepChart');
-  if (chart && data) {
-    chart.data.labels = data.map(d => d.date);
-    chart.data.datasets[0].data = data.map(d => d.value);
-    chart.update();
-  }
-}
-
-function updateQuickStats(sessionData) {
-  // Update wellbeing score
-  const wellbeingScore = document.querySelector('.stat-number');
-  if (wellbeingScore) {
-    wellbeingScore.textContent = sessionData.confidence || '85%';
-  }
-  
-  // Update daily screen time if available
-  if (sessionData.usage_data && sessionData.usage_data.daily_screen_time) {
-    const screenTimeElements = document.querySelectorAll('.screen-time-value');
-    screenTimeElements.forEach(element => {
-      element.textContent = `${sessionData.usage_data.daily_screen_time}h`;
-    });
-    
-    // Also update any elements that might show screen time in insights
-    const screenTimeMetrics = document.querySelectorAll('.metric-value');
-    screenTimeMetrics.forEach(metric => {
-      if (metric.nextElementSibling && metric.nextElementSibling.textContent === 'Screen Time') {
-        metric.textContent = `${sessionData.usage_data.daily_screen_time}h`;
-      }
-    });
-  }
-}
-
-function initializeCharts(historicalData) {
-  // Screen Time Chart
-  const screenTimeCtx = document.getElementById('screenTimeChart');
-  if (screenTimeCtx && historicalData.stress_vs_screen_time) {
-    new Chart(screenTimeCtx, {
-      type: 'line',
-      data: {
-        labels: historicalData.stress_vs_screen_time.map(d => d.date),
-        datasets: [{
-          label: 'Screen Time (hours)',
-          data: historicalData.stress_vs_screen_time.map(d => d.value / 10), // Convert to hours
-          borderColor: '#667eea',
-          backgroundColor: 'rgba(102, 126, 234, 0.1)',
-          tension: 0.4
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: false
-          }
-        },
-        scales: {
-          y: {
-            beginAtZero: true,
-            grid: {
-              color: 'rgba(255,255,255,0.1)'
-            },
-            ticks: {
-              color: '#94a3b8'
-            }
-          },
-          x: {
-            grid: {
-              color: 'rgba(255,255,255,0.1)'
-            },
-            ticks: {
-              color: '#94a3b8'
-            }
-          }
-        }
-      }
-    });
-  }
-
-  // Mood Chart
-  const moodCtx = document.getElementById('moodChart');
-  if (moodCtx && historicalData.mood_trend) {
-    new Chart(moodCtx, {
-      type: 'bar',
-      data: {
-        labels: historicalData.mood_trend.map(d => d.date),
-        datasets: [{
-          label: 'Mood Score',
-          data: historicalData.mood_trend.map(d => d.value),
-          backgroundColor: 'rgba(34, 197, 94, 0.5)',
-          borderColor: '#22c55e'
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: false
-          }
-        },
-        scales: {
-          y: {
-            beginAtZero: true,
-            max: 5,
-            grid: {
-              color: 'rgba(255,255,255,0.1)'
-            },
-            ticks: {
-              color: '#94a3b8'
-            }
-          },
-          x: {
-            grid: {
-              color: 'rgba(255,255,255,0.1)'
-            },
-            ticks: {
-              color: '#94a3b8'
-            }
-          }
-        }
-      }
-    });
-  }
-
-  // Sleep Chart
-  const sleepCtx = document.getElementById('sleepChart');
-  if (sleepCtx && historicalData.sleep_vs_mental_fatigue) {
-    new Chart(sleepCtx, {
-      type: 'line',
-      data: {
-        labels: historicalData.sleep_vs_mental_fatigue.map(d => d.date),
-        datasets: [{
-          label: 'Sleep Quality',
-          data: historicalData.sleep_vs_mental_fatigue.map(d => d.value),
-          borderColor: '#8b5cf6',
-          backgroundColor: 'rgba(139, 92, 246, 0.1)',
-          tension: 0.4
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: false
-          }
-        },
-        scales: {
-          y: {
-            beginAtZero: true,
-            max: 10,
-            grid: {
-              color: 'rgba(255,255,255,0.1)'
-            },
-            ticks: {
-              color: '#94a3b8'
-            }
-          },
-          x: {
-            grid: {
-              color: 'rgba(255,255,255,0.1)'
-            },
-            ticks: {
-              color: '#94a3b8'
-            }
-          }
-        }
-      }
-    });
-  }
-
-  // Focus Chart
-  const focusCtx = document.getElementById('focusChart');
-  if (focusCtx && historicalData.usage_vs_concentration) {
-    new Chart(focusCtx, {
-      type: 'doughnut',
-      data: {
-        labels: ['Focused', 'Distracted', 'Break'],
-        datasets: [{
-          data: [65, 25, 10],
-          backgroundColor: [
-            'rgba(34, 197, 94, 0.5)',
-            'rgba(245, 158, 11, 0.5)',
-            'rgba(239, 68, 68, 0.5)'
-          ],
-          borderColor: [
-            '#22c55e',
-            '#f59e0b',
-            '#ef4444'
-          ]
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            position: 'bottom',
-            labels: {
-              color: '#94a3b8'
-            }
-          }
-        }
-      }
-    });
-  }
-}
-
-function updateInsights(sessionData) {
-  // This is now handled by loadAIInsights()
-}
-
-function exportData() {
-  showNotification('Preparing data export...', 'info');
-  
-  // In a real app, this would generate and download a file
-  setTimeout(() => {
-    showNotification('Data exported successfully!', 'success');
-  }, 2000);
-}
-
-function showNotification(message, type = 'info') {
-  const notification = document.createElement('div');
-  notification.className = `notification ${type}`;
-  notification.innerHTML = `
-    <div class="notification-content">
-      <i class="fa-solid fa-${type === 'success' ? 'check-circle' : type === 'warning' ? 'exclamation-triangle' : 'info-circle'}"></i>
-      <span>${message}</span>
-    </div>
-  `;
-  
-  document.body.appendChild(notification);
-  
-  setTimeout(() => {
-    notification.remove();
-  }, 3000);
-}
-
-// Add notification and no-achievements styles
-const style = document.createElement('style');
-style.textContent = `
-  .notification {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: linear-gradient(135deg, #8b5cf6, #3b82f6);
-    color: white;
-    padding: 16px 20px;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
-    z-index: 1000;
-    animation: slideIn 0.3s ease;
-  }
-  
-  .notification-content {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  
-  .notification.success {
-    background: linear-gradient(135deg, #22c55e, #16a34a);
-  }
-  
-  .notification.warning {
-    background: linear-gradient(135deg, #f59e0b, #d97706);
-  }
-  
-  .notification.error {
-    background: linear-gradient(135deg, #ef4444, #dc2626);
-  }
-  
-  .no-achievements {
-    grid-column: 1 / -1;
-    text-align: center;
-    padding: 40px;
-    background: rgba(255,255,255,0.05);
-    border-radius: 16px;
-    border: 1px solid rgba(255,255,255,0.1);
-  }
-  
-  .no-achievements i {
-    font-size: 48px;
-    color: #64748b;
-    margin-bottom: 16px;
-  }
-  
-  .no-achievements p {
-    color: #94a3b8;
-    margin: 0;
-  }
-  
-  @keyframes slideIn {
-    from {
-      transform: translateX(100%);
-      opacity: 0;
-    }
-    to {
-      transform: translateX(0);
-      opacity: 1;
-    }
-  }
-`;
-document.head.appendChild(style);
-</script>
+<script src="{{ url_for('static', filename='dashboard.js') }}"></script>
 {% endblock %}

@@ -1,262 +1,423 @@
 {% extends "base.html" %}
 
-{% block title %}Login - Digital Addiction Predictor{% endblock %}
+{% block title %}Login - Digital Wellness{% endblock %}
 
 {% block content %}
-<div class="auth-container">
-  <div class="auth-card">
-    <div class="auth-header">
-      <div class="auth-logo">
-        <i class="fa-solid fa-brain"></i>
+<div class="auth-page">
+  <div class="auth-orb auth-orb-one"></div>
+  <div class="auth-orb auth-orb-two"></div>
+
+  <section class="auth-shell">
+    <div class="auth-story">
+      <div class="auth-story-badge">
+        <i class="fa-solid fa-sparkles"></i>
+        <span>Digital Wellness Platform</span>
       </div>
-      <h1>Welcome Back</h1>
-      <p>Sign in to continue your digital wellness journey</p>
-    </div>
 
-    {% if error %}
-    <div class="error-message">
-      <i class="fa-solid fa-exclamation-triangle"></i>
-      <span>{{ error }}</span>
-    </div>
-    {% endif %}
+      <h1 class="auth-title">
+        Welcome Back to
+        <span>Digital Wellness</span>
+      </h1>
 
-    <form method="POST" class="auth-form">
-      <div class="form-group">
-        <label for="username">Username or Email</label>
-        <div class="input-group">
-          <i class="fa-solid fa-user"></i>
-          <input type="text" id="username" name="username" required 
-                 placeholder="Enter your username or email">
+      <p class="auth-description">
+        Sign in to continue your wellness journey, track your habits, and review your personal dashboard with the same theme and experience across the whole app.
+      </p>
+
+      <div class="auth-highlights">
+        <div class="auth-highlight">
+          <i class="fa-solid fa-chart-line"></i>
+          <span>Live progress, streaks, and wellbeing insights</span>
+        </div>
+        <div class="auth-highlight">
+          <i class="fa-solid fa-heart"></i>
+          <span>Daily routines to support focus and digital balance</span>
+        </div>
+        <div class="auth-highlight">
+          <i class="fa-solid fa-brain"></i>
+          <span>One connected experience for auth, wellness, and ML analysis</span>
         </div>
       </div>
+    </div>
 
-      <div class="form-group">
-        <label for="password">Password</label>
-        <div class="input-group">
-          <i class="fa-solid fa-lock"></i>
-          <input type="password" id="password" name="password" required 
-                 placeholder="Enter your password">
+    <div class="auth-panel">
+      <div class="auth-card">
+        <div class="auth-card-header">
+          <p class="auth-kicker">Sign In</p>
+          <h2>Continue your journey</h2>
+        </div>
+
+        {% if error %}
+        <div class="error-message" id="authMessage">
+          <i class="fa-solid fa-exclamation-triangle"></i>
+          <span>{{ error }}</span>
+        </div>
+        {% else %}
+        <div class="error-message" id="authMessage" style="display:none;"></div>
+        {% endif %}
+
+        <form method="POST" class="auth-form" id="loginForm">
+          <div class="form-group">
+            <label for="username">Email</label>
+            <div class="input-group">
+              <i class="fa-solid fa-user"></i>
+              <input type="email" id="username" name="username" required placeholder="Enter your email">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div class="input-group">
+              <i class="fa-solid fa-lock"></i>
+              <input type="password" id="password" name="password" required placeholder="Enter your password">
+            </div>
+          </div>
+
+          <button type="submit" class="auth-submit">
+            <i class="fa-solid fa-sign-in-alt"></i>
+            Sign In
+          </button>
+        </form>
+
+        <div class="auth-help-row">
+          <span>Signed-in users can change password from Profile.</span>
+        </div>
+
+        <div class="auth-footer">
+          <p>Don't have an account? <a href="/signup">Create one now</a></p>
         </div>
       </div>
-
-      <div class="form-options">
-        <label class="checkbox-label">
-          <input type="checkbox" name="remember">
-          <span class="checkmark"></span>
-          Remember me
-        </label>
-        <a href="#" class="forgot-link">Forgot password?</a>
-      </div>
-
-      <button type="submit" class="auth-btn primary">
-        <i class="fa-solid fa-sign-in-alt"></i>
-        Sign In
-      </button>
-    </form>
-
-    <div class="auth-divider">
-      <span>OR</span>
     </div>
-
-    <div class="auth-footer">
-      <p>Don't have an account? <a href="/signup">Sign up</a></p>
-    </div>
-  </div>
+  </section>
 </div>
-{% endblock %}
 
-{% block extra_css %}
 <style>
-.auth-container {
-  min-height: 100vh;
+.auth-page {
+  position: relative;
+  min-height: calc(100vh - 80px);
+  overflow: hidden;
+  background:
+    radial-gradient(circle at top left, rgba(255, 107, 107, 0.16), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(78, 205, 196, 0.16), transparent 24%),
+    linear-gradient(135deg, #050816 0%, #0d1326 55%, #131b31 100%);
+}
+
+.auth-orb {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(20px);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.auth-orb-one {
+  top: 80px;
+  left: -80px;
+  width: 240px;
+  height: 240px;
+  background: rgba(255, 107, 107, 0.22);
+}
+
+.auth-orb-two {
+  right: -40px;
+  bottom: 40px;
+  width: 220px;
+  height: 220px;
+  background: rgba(78, 205, 196, 0.2);
+}
+
+.auth-shell {
   display: flex;
   align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 20px;
+  justify-content: space-between;
+  gap: 56px;
+  min-height: calc(100vh - 80px);
+  width: min(1180px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 48px 0 72px;
+  position: relative;
+  z-index: 1;
+}
+
+.auth-story {
+  flex: 1 1 52%;
+  max-width: 560px;
+}
+
+.auth-story-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 13px;
+  margin-bottom: 24px;
+  backdrop-filter: blur(16px);
+}
+
+.auth-story-badge i {
+  color: #feca57;
+}
+
+.auth-title {
+  margin: 0 0 18px;
+  font-size: clamp(2.5rem, 5vw, 4.4rem);
+  line-height: 1.04;
+  color: #ffffff;
+  letter-spacing: -0.04em;
+}
+
+.auth-title span {
+  display: block;
+  background: linear-gradient(135deg, #ff8a5b, #4ecdc4 70%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.auth-description {
+  margin: 0;
+  max-width: 520px;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.auth-highlights {
+  display: grid;
+  gap: 14px;
+  margin-top: 30px;
+}
+
+.auth-highlight {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: rgba(255, 255, 255, 0.88);
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(14px);
+}
+
+.auth-highlight i {
+  color: #4ecdc4;
+}
+
+.auth-panel {
+  flex: 0 0 460px;
 }
 
 .auth-card {
-  background: white;
-  border-radius: 20px;
-  padding: 40px;
   width: 100%;
-  max-width: 420px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  background: rgba(10, 15, 30, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 28px;
+  padding: 38px;
+  box-shadow: 0 26px 80px rgba(0, 0, 0, 0.38);
+  backdrop-filter: blur(22px);
 }
 
-.auth-header {
-  text-align: center;
-  margin-bottom: 30px;
+.auth-card-header {
+  margin-bottom: 28px;
 }
 
-.auth-logo {
-  width: 60px;
-  height: 60px;
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 20px;
-  color: white;
-  font-size: 24px;
+.auth-kicker {
+  margin: 0 0 8px;
+  color: #feca57;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
 }
 
-.auth-header h1 {
-  color: #333;
-  margin-bottom: 10px;
-  font-size: 28px;
-}
-
-.auth-header p {
-  color: #666;
-  font-size: 16px;
-}
-
-.error-message {
-  background: #fee;
-  color: #c33;
-  padding: 12px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.auth-card-header h2 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 2rem;
+  line-height: 1.1;
 }
 
 .auth-form {
-  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
 
 .form-group {
-  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .form-group label {
-  display: block;
-  margin-bottom: 8px;
-  color: #333;
-  font-weight: 500;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
 }
 
 .input-group {
-  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 14px 16px;
+  transition: all 0.3s ease;
+}
+
+.input-group:focus-within {
+  background: rgba(255, 255, 255, 0.11);
+  border-color: rgba(78, 205, 196, 0.5);
+  box-shadow: 0 0 0 4px rgba(78, 205, 196, 0.12);
 }
 
 .input-group i {
-  position: absolute;
-  left: 15px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #666;
+  color: #ff8a5b;
+  font-size: 16px;
 }
 
 .input-group input {
-  width: 100%;
-  padding: 12px 15px 12px 45px;
-  border: 2px solid #e1e5e9;
-  border-radius: 8px;
-  font-size: 16px;
-  transition: border-color 0.3s;
-}
-
-.input-group input:focus {
-  outline: none;
-  border-color: #667eea;
-}
-
-.form-options {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 25px;
-}
-
-.checkbox-label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #666;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.forgot-link {
-  color: #667eea;
-  text-decoration: none;
-  font-size: 14px;
-}
-
-.forgot-link:hover {
-  text-decoration: underline;
-}
-
-.auth-btn {
-  width: 100%;
-  padding: 14px;
+  flex: 1;
+  background: transparent;
   border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 600;
+  color: #ffffff;
+  font-size: 15px;
+  outline: none;
+}
+
+.input-group input::placeholder {
+  color: rgba(255, 255, 255, 0.42);
+}
+
+.auth-submit {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ff8a5b 55%, #4ecdc4 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 16px;
+  padding: 16px 24px;
+  font-size: 15px;
+  font-weight: 700;
   cursor: pointer;
-  transition: transform 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  margin-top: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
 }
 
-.auth-btn.primary {
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  color: white;
+.auth-help-row {
+  display: flex;
+  justify-content: flex-start;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.62);
 }
 
-.auth-btn:hover {
-  transform: translateY(-2px);
+.auth-submit:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 44px rgba(255, 107, 107, 0.32);
 }
 
-.auth-divider {
-  text-align: center;
-  margin: 20px 0;
-  position: relative;
+.auth-submit:active {
+  transform: translateY(-1px);
 }
 
-.auth-divider::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: #e1e5e9;
-}
-
-.auth-divider span {
-  background: white;
-  padding: 0 15px;
-  color: #666;
+.error-message {
+  background: rgba(255, 107, 107, 0.12);
+  border: 1px solid rgba(255, 107, 107, 0.38);
+  color: #ffd0d0;
+  padding: 12px 16px;
+  border-radius: 16px;
+  margin-bottom: 16px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
   font-size: 14px;
+}
+
+.error-message[data-state="info"] {
+  background: rgba(78, 205, 196, 0.12);
+  border-color: rgba(78, 205, 196, 0.34);
+  color: #bff6ef;
 }
 
 .auth-footer {
   text-align: center;
-  color: #666;
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 14px;
 }
 
 .auth-footer a {
-  color: #667eea;
+  color: #4ecdc4;
   text-decoration: none;
   font-weight: 600;
+  transition: color 0.3s ease;
 }
 
 .auth-footer a:hover {
+  color: #ffffff;
   text-decoration: underline;
 }
 
-@media (max-width: 480px) {
-  .auth-card {
-    padding: 30px 20px;
+@media (max-width: 980px) {
+  .auth-shell {
+    flex-direction: column;
+    justify-content: center;
+    gap: 30px;
+    padding: 32px 0 56px;
   }
-  
-  .auth-header h1 {
-    font-size: 24px;
+
+  .auth-story {
+    max-width: none;
+  }
+
+  .auth-panel {
+    width: 100%;
+    max-width: 520px;
+    flex: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .auth-page {
+    min-height: calc(100vh - 72px);
+  }
+
+  .auth-shell {
+    width: min(100% - 28px, 560px);
+    min-height: auto;
+    padding: 20px 0 42px;
+  }
+
+  .auth-story {
+    display: none;
+  }
+
+  .auth-card {
+    padding: 28px 22px;
+  }
+
+  .auth-form {
+    gap: 16px;
+  }
+
+  .auth-submit {
+    padding: 14px 20px;
   }
 }
 </style>
