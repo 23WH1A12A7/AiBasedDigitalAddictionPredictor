@@ -59,13 +59,8 @@ def signup():
         if not db.create_user(username, email, password):
             return render_template("signup.html", error="Username or email already exists")
 
-        user = db.authenticate_user(email, password)
-        if not user:
-            return render_template("signup.html", error="Account created but login failed. Please sign in.")
-
-        db.get_or_create_user(user["user_id"])
-        set_session_user(user)
-        return redirect(url_for("pages.home"))
+        # Account created successfully - redirect to login
+        return redirect(url_for("auth.login") + "?signup=success")
 
     return render_template("signup.html")
 
@@ -90,23 +85,13 @@ def api_register():
     if not db.create_user(username, email, password):
         return jsonify({"error": "Email already exists. Please use a different email or login."}), 409
 
-    user = db.authenticate_user(email, password)
-    db.get_or_create_user(user["user_id"])
-    set_session_user(user)
-    token = create_token(user["user_id"], user["email"])
-    response = jsonify(
+    # Account created successfully - require manual login
+    return jsonify(
         {
-            "token": token,
-            "user": {
-                "id": user["user_id"],
-                "email": user["email"],
-                "name": user.get("username", ""),
-                "createdAt": datetime.now().isoformat(),
-            },
+            "message": "Account created successfully. Please log in.",
+            "email": email,
         }
-    )
-    response.set_cookie("auth_token", token, httponly=True, secure=True, samesite="Lax")
-    return response, 201
+    ), 201
 
 
 @auth_bp.route("/api/auth/login", methods=["POST"])
